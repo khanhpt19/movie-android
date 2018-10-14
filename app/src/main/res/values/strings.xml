@@ -1,3 +1,33 @@
 <resources>
     <string name="app_name">Movie</string>
+    <string name="title_genre">Genre</string>
+    <string name="title_search">Search</string>
+    <string name="menu_search">Search</string>
+    <string name="title_home">Home</string>
+    <string name="title_favourite">Favourite</string>
+    <string name="title_genres">Genres</string>
+    <string name="text_category">Category</string>
+    <string name="category_popular">Popular</string>
+    <string name="category_now_playing">Now Playing</string>
+    <string name="category_top_rate">Top rate</string>
+    <string name="category_upcoming">Upcoming</string>
+    <string name="text_genres">Genres</string>
+    <string name="text_cast">Cast</string>
+    <string name="text_movies">List movie of cast</string>
+    <string name="text_biography">Biography</string>
+    <string name="text_release_date">Release Date</string>
+    <string name="text_company">Company</string>
+    <string name="title_information">Information</string>
+    <string name="title_trailer">Trailer</string>
+    <string name="text_over_view">Overview</string>
+    <string name="key_upcoming">upcoming</string>
+    <string name="name_upcoming">Movie Upcoming</string>
+    <string name="name_top_rated">Top Rated Movies</string>
+    <string name="key_top_rated">top_rated</string>
+    <string name="name_now_playing">Movie Now Playing</string>
+    <string name="key_now_playing">now_playing</string>
+    <string name="key_popular">popular</string>
+    <string name="name_popular">Popular Movies</string>
+    <string name="toast_movie_not_exist">Movie not exist! Please try other movie.</string>
+    <string name="hint_search">Enter movie name</string>
 </resources>
