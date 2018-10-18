@@ -7,6 +7,10 @@ public class Category implements Parcelable {
     private String mName;
     private String mKey;
 
+    public Category(){
+
+    }
+
     protected Category(Parcel in) {
         mName = in.readString();
         mKey = in.readString();
