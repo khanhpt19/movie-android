@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
+
+    <data>
+
+        <import type="java.lang.String" />
+
+        <variable
+            name="viewModel"
+            type="com.pt.khanh.movie.screen.home.HomeViewModel" />
+    </data>
+
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
+
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/image_backdrop_trend"
+                imageUrl="@{viewModel.mMovieObservableField.backdropPath}"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/dp_250"
+                android:onClick="@{viewModel::onTrendingClick}"
+                android:scaleType="centerCrop"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="@dimen/dp_250"
+                android:background="@drawable/view_backdrop_trend"
+                app:layout_constraintBottom_toBottomOf="@id/image_backdrop_trend"
+                app:layout_constraintTop_toTopOf="@id/image_backdrop_trend" />
+
+            <ImageView
+                android:id="@+id/image_poster_trend"
+                imageUrl="@{viewModel.mMovieObservableField.posterPath}"
+                android:layout_width="@dimen/dp_100"
+                android:layout_height="@dimen/dp_150"
+                android:layout_marginBottom="@dimen/dp_8"
+                android:layout_marginLeft="@dimen/dp_16"
+                app:layout_constraintBottom_toBottomOf="@id/image_backdrop_trend"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <TextView
+                android:id="@+id/text_title_trend"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/dp_100"
+                android:layout_marginLeft="@dimen/dp_16"
+                android:text="@{viewModel.mMovieObservableField.title}"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/sp_20"
+                app:layout_constraintBottom_toBottomOf="@id/image_backdrop_trend"
+                app:layout_constraintLeft_toRightOf="@id/image_poster_trend" />
+
+            <TextView
+                android:id="@+id/text_vote_average"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{String.valueOf(viewModel.mMovieObservableField.voteAverage)}"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/sp_15"
+                app:layout_constraintBottom_toBottomOf="@id/image_star"
+                app:layout_constraintLeft_toLeftOf="@id/text_title_trend"
+                app:layout_constraintRight_toLeftOf="@id/image_star" />
+
+            <ImageView
+                android:id="@+id/image_star"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/dp_8"
+                android:src="@drawable/ic_star"
+                app:layout_constraintBottom_toTopOf="@id/text_release_date"
+                app:layout_constraintLeft_toRightOf="@id/text_vote_average" />
+
+            <TextView
+                android:id="@+id/text_release_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/dp_16"
+                android:text="@{viewModel.mMovieObservableField.releaseDate}"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/sp_15"
+                app:layout_constraintBottom_toBottomOf="@id/image_backdrop_trend"
+                app:layout_constraintLeft_toLeftOf="@id/text_title_trend" />
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/card_view_popular"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/dp_8"
+                android:layout_marginStart="@dimen/dp_8"
+                android:layout_marginTop="@dimen/dp_8"
+                android:onClick="@{viewModel::onPopularClick}"
+                app:layout_constraintEnd_toStartOf="@id/card_view_now_playing"
+                app:layout_constraintHorizontal_chainStyle="spread"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/image_backdrop_trend" >
+
+                <ImageView
+                    android:id="@+id/image_popular"
+                    style="@style/StyleImageCategory"
+                    android:src="@drawable/popular" />
+
+                <View
+                    style="@style/StyleViewCategory"
+                    android:layout_gravity="bottom" />
+
+                <TextView
+                    android:id="@+id/text_popular"
+                    style="@style/StyleTextCategory"
+                    android:layout_gravity="bottom"
+                    android:text="@string/category_popular"
+                    android:textColor="@android:color/white" />
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/card_view_now_playing"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="@dimen/dp_8"
+                android:layout_marginTop="@dimen/dp_8"
+                android:onClick="@{viewModel::onNowPlayingClick}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/card_view_popular"
+                app:layout_constraintTop_toBottomOf="@id/image_backdrop_trend">
+
+                <ImageView
+                    android:id="@+id/image_now_playing"
+                    style="@style/StyleImageCategory"
+                    android:src="@drawable/nowplaying" />
+
+                <View
+                    style="@style/StyleViewCategory"
+                    android:layout_gravity="bottom" />
+
+                <TextView
+                    android:id="@+id/text_now_playing"
+                    style="@style/StyleTextCategory"
+                    android:layout_gravity="bottom"
+                    android:text="@string/category_now_playing"
+                    android:textColor="@android:color/white" />
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/card_view_top_rate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="@{viewModel::onTopRateClick}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/card_view_popular"
+                app:layout_constraintTop_toBottomOf="@id/card_view_popular"
+                app:layout_constraintVertical_bias="0.3">
+
+                <ImageView
+                    android:id="@+id/image_top_rate"
+                    style="@style/StyleImageCategory"
+                    android:src="@drawable/toprate" />
+
+                <View
+                    style="@style/StyleViewCategory"
+                    android:layout_gravity="bottom" />
+
+                <TextView
+                    android:id="@+id/text_top_rate"
+                    style="@style/StyleTextCategory"
+                    android:layout_gravity="bottom"
+                    android:text="@string/category_top_rate"
+                    android:textColor="@android:color/white" />
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="@{viewModel::onUpcomingClick}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="@id/card_view_now_playing"
+                app:layout_constraintTop_toBottomOf="@id/card_view_now_playing"
+                app:layout_constraintVertical_bias="0.3">
+
+                <ImageView
+                    android:id="@+id/image_upcoming"
+                    style="@style/StyleImageCategory"
+                    android:src="@drawable/upcoming" />
+
+                <View
+                    style="@style/StyleViewCategory"
+                    android:layout_gravity="bottom" />
+
+                <TextView
+                    android:id="@+id/text_upcoming"
+                    style="@style/StyleTextCategory"
+                    android:layout_gravity="bottom"
+                    android:text="@string/category_upcoming"
+                    android:textColor="@android:color/white" />
+            </android.support.v7.widget.CardView>
+        </android.support.constraint.ConstraintLayout>
+    </android.support.v4.widget.NestedScrollView>
+
+</layout>
