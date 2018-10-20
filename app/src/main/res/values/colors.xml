@@ -4,4 +4,5 @@
     <color name="color_primary_dark">#49599a</color>
     <color name="color_accent">#D81B60</color>
     <color name="color_transparent_category">#901e1e1e</color>
+    <color name="color_iron">#D7D8DB</color>
 </resources>

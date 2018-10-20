@@ -10,7 +10,7 @@ import java.util.List;
 
 import io.reactivex.Observable;
 
-public interface MovieDataSource {
+public interface MovieDatasource {
     interface RemoteDataSource {
         Observable<MovieResult> searchMovie(String name, int page);
 

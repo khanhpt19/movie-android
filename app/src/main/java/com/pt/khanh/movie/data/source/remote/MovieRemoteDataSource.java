@@ -5,14 +5,14 @@ import com.pt.khanh.movie.data.model.Cast;
 import com.pt.khanh.movie.data.model.GenresResult;
 import com.pt.khanh.movie.data.model.MovieDetail;
 import com.pt.khanh.movie.data.model.MovieResult;
-import com.pt.khanh.movie.data.source.MovieDataSource;
+import com.pt.khanh.movie.data.source.MovieDatasource;
 import com.pt.khanh.movie.data.source.remote.service.MovieAPI;
 import com.pt.khanh.movie.data.source.remote.service.MovieServiceClient;
 import com.pt.khanh.movie.utils.StringUtils;
 
 import io.reactivex.Observable;
 
-public class MovieRemoteDataSource implements MovieDataSource.RemoteDataSource {
+public class MovieRemoteDataSource implements MovieDatasource.RemoteDataSource {
     private static MovieRemoteDataSource sInstance;
     private MovieAPI mAPI;
 
