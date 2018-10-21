@@ -2,7 +2,7 @@ package com.pt.khanh.movie.data.repository;
 
 import com.pt.khanh.movie.data.model.Cast;
 import com.pt.khanh.movie.data.model.GenresResult;
-import com.pt.khanh.movie.data.model.MovieDetail;
+import com.pt.khanh.movie.data.model.Movie;
 import com.pt.khanh.movie.data.model.MovieResult;
 import com.pt.khanh.movie.data.model.ReviewResult;
 import com.pt.khanh.movie.data.source.MovieDatasource;
@@ -42,7 +42,7 @@ public class MovieRepository implements MovieDatasource.RemoteDataSource {
     }
 
     @Override
-    public Observable<MovieDetail> getMovie(long id) {
+    public Observable<Movie> getMovie(long id) {
         return mRemoteDataSource.getMovie(id);
     }
 

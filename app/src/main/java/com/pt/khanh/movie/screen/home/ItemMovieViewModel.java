@@ -19,11 +19,19 @@ import com.pt.khanh.movie.screen.detail.DetailActivity;
 import com.pt.khanh.movie.utils.Constants;
 import com.pt.khanh.movie.utils.StringUtils;
 
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Consumer;
+import io.reactivex.schedulers.Schedulers;
+
 public class ItemMovieViewModel extends BaseObservable {
     private static final String TAG = "AMEN";
     public ObservableField<Movie> mMovieObservableField = new ObservableField<>();
+    public ObservableField<Movie> mMovieDetailObservableField = new ObservableField<>();
     private MovieRepository mRepository;
     private Context mContext;
+
 
     public ItemMovieViewModel(Context context) {
         mContext = context;
@@ -46,12 +54,37 @@ public class ItemMovieViewModel extends BaseObservable {
     }
 
     public void onClickItemTrending() {
-        mContext.startActivity(getMovieIntent(mContext, mMovieObservableField.get()));
+        Disposable disposable = mRepository.getMovie(mMovieObservableField.get().getId())
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Consumer<Movie>() {
+                    @Override
+                    public void accept(Movie movieDetail) throws Exception {
+                        mMovieDetailObservableField.set(movieDetail);
+                        mContext.startActivity(getMovieIntent(mContext, mMovieObservableField.get(), movieDetail));
+                    }
+                });
+        CompositeDisposable compositeDisposable = new CompositeDisposable();
+        compositeDisposable.add(disposable);
+    }
 
+    public ObservableField<Movie> getMovieDetailObservableField() {
+        return mMovieDetailObservableField;
     }
 
     public void onItemClick() {
-        mContext.startActivity(getMovieIntent(mContext, mMovieObservableField.get()));
+        Disposable disposable = mRepository.getMovie(mMovieObservableField.get().getId())
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Consumer<Movie>() {
+                    @Override
+                    public void accept(Movie movieDetail) throws Exception {
+                        mMovieDetailObservableField.set(movieDetail);
+                        mContext.startActivity(getMovieIntent(mContext, mMovieObservableField.get(), movieDetail));
+                    }
+                });
+        CompositeDisposable compositeDisposable = new CompositeDisposable();
+        compositeDisposable.add(disposable);
     }
 
     public void onItemFavoriteClick() {
@@ -59,9 +92,10 @@ public class ItemMovieViewModel extends BaseObservable {
         Log.d(TAG, "onItemFavoriteClick: " + movie.getTitle());
     }
 
-    public static Intent getMovieIntent(Context context, Movie movie) {
+    public static Intent getMovieIntent(Context context, Movie movie, Movie movieDetail) {
         Intent intent = new Intent(context, DetailActivity.class);
         intent.putExtra(Constants.EXTRA_MOVIE, (Parcelable) movie);
+        intent.putExtra(Constants.EXTRA_TRAILER, (Parcelable) movieDetail);
         return intent;
     }
 }

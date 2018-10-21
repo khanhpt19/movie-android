@@ -24,7 +24,6 @@ import com.pt.khanh.movie.screen.movies.MoviesActivity;
 import com.pt.khanh.movie.utils.Constants;
 import com.pt.khanh.movie.utils.StringUtils;
 
-import java.io.Serializable;
 import java.util.List;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -120,7 +119,7 @@ public class HomeViewModel extends AndroidViewModel {
                 getApplication().getString(R.string.key_now_playing), 1)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(movieResult -> movieNowPlaying.set(movieResult.getMovies().get(0)),
+                .subscribe(movieResult -> movieNowPlaying.set(movieResult.getMovies().get(1)),
                         throwable -> {
                         });
         mCompositeDisposable.add(disposable);
@@ -142,7 +141,7 @@ public class HomeViewModel extends AndroidViewModel {
                 getApplication().getString(R.string.key_upcoming), 1)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(movieResult -> movieUpComing.set(movieResult.getMovies().get(0)),
+                .subscribe(movieResult -> movieUpComing.set(movieResult.getMovies().get(1)),
                         throwable -> {
                         });
         mCompositeDisposable.add(disposable);

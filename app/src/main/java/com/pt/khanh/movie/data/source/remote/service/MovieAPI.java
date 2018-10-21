@@ -2,7 +2,7 @@ package com.pt.khanh.movie.data.source.remote.service;
 
 import com.pt.khanh.movie.data.model.Cast;
 import com.pt.khanh.movie.data.model.GenresResult;
-import com.pt.khanh.movie.data.model.MovieDetail;
+import com.pt.khanh.movie.data.model.Movie;
 import com.pt.khanh.movie.data.model.MovieResult;
 import com.pt.khanh.movie.data.model.ReviewResult;
 
@@ -21,9 +21,9 @@ public interface MovieAPI {
     Observable<GenresResult> getGenres(@Query("api_key") String api_key);
 
     @GET("movie/{id}")
-    Observable<MovieDetail> getMovie(@Path("id") long id,
-                                     @Query("api_key") String api_key,
-                                     @Query("append_to_response") String append);
+    Observable<Movie> getMovie(@Path("id") long id,
+                               @Query("api_key") String api_key,
+                               @Query("append_to_response") String append);
 
     @GET("discover/movie")
     Observable<MovieResult> getMoviesByGenre(@Query("api_key") String api_key,

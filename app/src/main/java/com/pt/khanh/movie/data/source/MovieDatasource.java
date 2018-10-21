@@ -3,7 +3,6 @@ package com.pt.khanh.movie.data.source;
 import com.pt.khanh.movie.data.model.Cast;
 import com.pt.khanh.movie.data.model.GenresResult;
 import com.pt.khanh.movie.data.model.Movie;
-import com.pt.khanh.movie.data.model.MovieDetail;
 import com.pt.khanh.movie.data.model.MovieResult;
 import com.pt.khanh.movie.data.model.ReviewResult;
 
@@ -19,7 +18,7 @@ public interface MovieDatasource {
 
         Observable<GenresResult> getGenres();
 
-        Observable<MovieDetail> getMovie(long id);
+        Observable<Movie> getMovie(long id);
 
         Observable<MovieResult> getMoviesByGenre(long id, int page);
 

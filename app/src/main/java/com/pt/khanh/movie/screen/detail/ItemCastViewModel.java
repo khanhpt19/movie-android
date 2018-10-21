@@ -6,23 +6,22 @@ import android.databinding.BaseObservable;
 import android.databinding.BindingAdapter;
 import android.databinding.ObservableField;
 import android.os.Parcelable;
-import android.util.Log;
-import android.view.View;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.pt.khanh.movie.R;
 import com.pt.khanh.movie.data.model.Cast;
-import com.pt.khanh.movie.data.model.Genre;
-import com.pt.khanh.movie.screen.movies.MoviesActivity;
+import com.pt.khanh.movie.screen.detail.castDetail.CastDetailActivity;
 import com.pt.khanh.movie.utils.Constants;
 import com.pt.khanh.movie.utils.StringUtils;
 
 public class ItemCastViewModel extends BaseObservable {
     public ObservableField<Cast> mCastObservableField = new ObservableField<>();
+    private Context mContext;
 
-    public ItemCastViewModel() {
+    public ItemCastViewModel(Context context) {
+        mContext = context;
     }
 
     @BindingAdapter("imageUrlCast")
@@ -42,12 +41,12 @@ public class ItemCastViewModel extends BaseObservable {
     }
 
     public void onClickItemCast() {
-        Log.d("AMEN", "onClickItemGenres: "  + mCastObservableField.get().getName());
+        mContext.startActivity(getMoviesIntent(mContext, mCastObservableField.get()));
     }
 
-    public static Intent getMovieIntent(Context context, Genre genre) {
-        Intent intent = new Intent(context, MoviesActivity.class);
-        intent.putExtra(Constants.EXTRA_GENRE, (Parcelable) genre);
+    public static Intent getMoviesIntent(Context context, Cast cast) {
+        Intent intent = new Intent(context, CastDetailActivity.class);
+        intent.putExtra(Constants.EXTRA_CAST, (Parcelable) cast);
         return intent;
     }
 }

@@ -9,13 +9,15 @@ import android.os.Parcelable;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.util.List;
+
 @Entity(tableName = "movie")
 public class Movie implements Parcelable {
     @PrimaryKey
     @SerializedName("id")
     @ColumnInfo(name = "id")
     @Expose
-    private int mId;
+    private long mId;
 
     @SerializedName("title")
     @ColumnInfo(name = "title")
@@ -57,12 +59,21 @@ public class Movie implements Parcelable {
     @Expose
     private String mOriginalLanguage;
 
-    public Movie(){
-
-    }
+    @SerializedName("genres")
+    @Expose
+    private List<Genre> mGenres;
+    @SerializedName("production_companies")
+    @Expose
+    private List<Company> mCompanies;
+    @SerializedName("videos")
+    @Expose
+    private TrailerMovieResult mTrailerMovieResult;
+    @SerializedName("credits")
+    @Expose
+    private CastResult mCastResult;
 
     protected Movie(Parcel in) {
-        mId = in.readInt();
+        mId = in.readLong();
         mTitle = in.readString();
         mPosterPath = in.readString();
         mBackdropPath = in.readString();
@@ -71,6 +82,8 @@ public class Movie implements Parcelable {
         mReleaseDate = in.readString();
         mPopularity = in.readString();
         mOriginalLanguage = in.readString();
+        mGenres = in.createTypedArrayList(Genre.CREATOR);
+        mCompanies = in.createTypedArrayList(Company.CREATOR);
     }
 
     public static final Creator<Movie> CREATOR = new Creator<Movie>() {
@@ -85,11 +98,31 @@ public class Movie implements Parcelable {
         }
     };
 
-    public int getId() {
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeLong(mId);
+        dest.writeString(mTitle);
+        dest.writeString(mPosterPath);
+        dest.writeString(mBackdropPath);
+        dest.writeString(mOverview);
+        dest.writeFloat(mVoteAverage);
+        dest.writeString(mReleaseDate);
+        dest.writeString(mPopularity);
+        dest.writeString(mOriginalLanguage);
+        dest.writeTypedList(mGenres);
+        dest.writeTypedList(mCompanies);
+    }
+
+    public long getId() {
         return mId;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         mId = id;
     }
 
@@ -157,21 +190,39 @@ public class Movie implements Parcelable {
         mOriginalLanguage = originalLanguage;
     }
 
-    @Override
-    public int describeContents() {
-        return 0;
+    public List<Genre> getGenres() {
+        return mGenres;
     }
 
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeInt(mId);
-        dest.writeString(mTitle);
-        dest.writeString(mPosterPath);
-        dest.writeString(mBackdropPath);
-        dest.writeString(mOverview);
-        dest.writeFloat(mVoteAverage);
-        dest.writeString(mReleaseDate);
-        dest.writeString(mPopularity);
-        dest.writeString(mOriginalLanguage);
+    public void setGenres(List<Genre> genres) {
+        mGenres = genres;
+    }
+
+    public List<Company> getCompanies() {
+        return mCompanies;
+    }
+
+    public void setCompanies(List<Company> companies) {
+        mCompanies = companies;
+    }
+
+    public TrailerMovieResult getTrailerMovieResult() {
+        return mTrailerMovieResult;
+    }
+
+    public void setTrailerMovieResult(TrailerMovieResult trailerMovieResult) {
+        mTrailerMovieResult = trailerMovieResult;
+    }
+
+    public CastResult getCastResult() {
+        return mCastResult;
+    }
+
+    public void setCastResult(CastResult castResult) {
+        mCastResult = castResult;
+    }
+
+    public static Creator<Movie> getCREATOR() {
+        return CREATOR;
     }
 }
