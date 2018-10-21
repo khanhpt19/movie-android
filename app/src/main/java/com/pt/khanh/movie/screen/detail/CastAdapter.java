@@ -52,7 +52,7 @@ public class CastAdapter extends RecyclerView.Adapter<CastAdapter.ItemViewHolder
         public ItemViewHolder(ItemCastBinding binding) {
             super(binding.getRoot());
             mCastBinding = binding;
-            mCastViewModel = new ItemCastViewModel();
+            mCastViewModel = new ItemCastViewModel(itemView.getContext());
             mCastBinding.setViewModel(mCastViewModel);
         }
 
