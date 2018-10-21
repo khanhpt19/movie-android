@@ -5,6 +5,7 @@ import com.pt.khanh.movie.data.model.GenresResult;
 import com.pt.khanh.movie.data.model.Movie;
 import com.pt.khanh.movie.data.model.MovieDetail;
 import com.pt.khanh.movie.data.model.MovieResult;
+import com.pt.khanh.movie.data.model.ReviewResult;
 
 import java.util.List;
 
@@ -29,6 +30,10 @@ public interface MovieDatasource {
         Observable<MovieResult> getMoviesTrend();
 
         Observable<Cast> getCastDetail(long id);
+
+        Observable<MovieResult> getMovieRecommend(long id, int page);
+
+        Observable<ReviewResult> getReview(long id, int page);
     }
 
     interface LocalDataSource {

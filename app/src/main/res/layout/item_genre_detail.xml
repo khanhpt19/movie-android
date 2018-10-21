@@ -19,7 +19,7 @@
             android:background="@drawable/custom_button_rounded"
             android:onClick="@{() -> viewModel.onClickItemGenres()}"
             android:text="@{viewModel.mGenreObservableField.name}"
-            android:textColor="@color/color_sea_buckthorn"
+            android:padding="@dimen/dp_8"
             app:cornerRadius="@dimen/dp_30" />
     </android.support.constraint.ConstraintLayout>
 </layout>

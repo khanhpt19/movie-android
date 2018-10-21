@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.pt.khanh.movie.screen.detail.ItemReviewViewModel" />
+    </data>
+
+    <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/dp_8">
+
+        <ImageView
+            android:id="@+id/image_avatar"
+            android:layout_width="@dimen/dp_30"
+            android:layout_height="@dimen/dp_30"
+            android:src="@drawable/default_person1" />
+
+        <TextView
+            android:id="@+id/text_author"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dp_8"
+            android:layout_marginRight="@dimen/dp_8"
+            android:text="@{viewModel.mReviewObservableField.author}"
+            android:textColor="@color/color_sea_buckthorn"
+            app:layout_constraintLeft_toRightOf="@id/image_avatar"
+            app:layout_constraintRight_toLeftOf="@id/button_like"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageButton
+            android:id="@+id/button_like"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/dp_4"
+            android:background="@null"
+            android:src="@drawable/ic_thumb_up"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.borjabravo.readmoretextview.ReadMoreTextView
+            android:id="@+id/text_content"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@{viewModel.mReviewObservableField.content}"
+            android:ellipsize="end"
+            app:colorClickableText="@color/colorPrimary"
+            app:layout_constraintStart_toStartOf="@id/text_author"
+            app:layout_constraintTop_toBottomOf="@id/text_author"
+            app:layout_constraintEnd_toStartOf="@id/button_like"/>
+
+    </android.support.constraint.ConstraintLayout>
+
+</layout>
