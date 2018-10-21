@@ -2,21 +2,29 @@ package com.pt.khanh.movie.screen.home;
 
 import android.app.Application;
 import android.arch.lifecycle.AndroidViewModel;
+import android.content.Context;
+import android.content.Intent;
 import android.databinding.BindingAdapter;
 import android.databinding.ObservableField;
+import android.os.Parcelable;
 import android.support.annotation.NonNull;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
+import android.view.View;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.pt.khanh.movie.R;
+import com.pt.khanh.movie.data.model.Category;
 import com.pt.khanh.movie.data.model.Movie;
 import com.pt.khanh.movie.data.model.MovieResult;
 import com.pt.khanh.movie.data.repository.MovieRepository;
+import com.pt.khanh.movie.screen.movies.MoviesActivity;
+import com.pt.khanh.movie.utils.Constants;
 import com.pt.khanh.movie.utils.StringUtils;
 
+import java.io.Serializable;
 import java.util.List;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -25,6 +33,7 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
 public class HomeViewModel extends AndroidViewModel {
+    private static final String TAG = "AMEN";
     public static final int MAX_ITEM_TRENDING_MOVIE = 5;
     private ObservableField<TrendingMovieAdapter> trendingMovieAdapter = new ObservableField<>();
     private ObservableField<Movie> moviePopular = new ObservableField<>();
@@ -34,6 +43,7 @@ public class HomeViewModel extends AndroidViewModel {
     private ViewPager mViewPager;
     private CompositeDisposable mCompositeDisposable = new CompositeDisposable();
     private MovieRepository mRepository;
+    private Category mCategory = new Category();
 
     public HomeViewModel(@NonNull Application application) {
         super(application);
@@ -138,6 +148,31 @@ public class HomeViewModel extends AndroidViewModel {
         mCompositeDisposable.add(disposable);
     }
 
+    public void onUpcomingClick(View view) {
+        mCategory.setKey(view.getContext().getString(R.string.key_upcoming));
+        mCategory.setName(view.getContext().getString(R.string.name_upcoming));
+        view.getContext().startActivity(getMovieIntent(view.getContext(), mCategory));
+    }
+
+    public void onTopRatedClick(View view) {
+        mCategory.setKey(view.getContext().getString(R.string.key_top_rated));
+        mCategory.setName(view.getContext().getString(R.string.name_top_rated));
+        view.getContext().startActivity(getMovieIntent(view.getContext(), mCategory));
+    }
+
+    public void onNowPlayingClick(View view) {
+        mCategory.setKey(view.getContext().getString(R.string.key_now_playing));
+        mCategory.setName(view.getContext().getString(R.string.name_now_playing));
+        view.getContext().startActivity(getMovieIntent(view.getContext(), mCategory));
+    }
+
+    public void onPopularClick(View view) {
+        mCategory.setKey(view.getContext().getString(R.string.key_popular));
+        mCategory.setName(view.getContext().getString(R.string.name_popular));
+        view.getContext().startActivity(getMovieIntent(view.getContext(), mCategory));
+    }
+
+
     @BindingAdapter("imageUrl")
     public static void loadImage(ImageView imageView, String url) {
         RequestOptions requestOptions = new RequestOptions()
@@ -146,5 +181,11 @@ public class HomeViewModel extends AndroidViewModel {
                 .load(StringUtils.getUrlImage(url))
                 .apply(requestOptions)
                 .into(imageView);
+    }
+
+    public static Intent getMovieIntent(Context context, Category category) {
+        Intent intent = new Intent(context, MoviesActivity.class);
+        intent.putExtra(Constants.EXTRA_CATEGORY, (Parcelable) category);
+        return intent;
     }
 }

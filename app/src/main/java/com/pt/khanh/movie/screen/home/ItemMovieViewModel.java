@@ -4,6 +4,7 @@ import android.content.Context;
 import android.databinding.BaseObservable;
 import android.databinding.BindingAdapter;
 import android.databinding.ObservableField;
+import android.util.Log;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
@@ -33,5 +34,20 @@ public class ItemMovieViewModel extends BaseObservable {
         RequestOptions requestOptions = new RequestOptions()
                 .error(R.drawable.ic_launcher_foreground);
         Glide.with(imageView.getContext()).load(StringUtils.getUrlImage(url)).apply(requestOptions).into(imageView);
+    }
+
+    public void onClickItemTrending() {
+        Movie movie = mMovieObservableField.get();
+        Log.d(TAG, "onClickItemTrending: " + movie.getTitle());
+    }
+
+    public void onItemClick() {
+        Movie movie = mMovieObservableField.get();
+        Log.d(TAG, "onItemClick: " + movie.getTitle());
+    }
+
+    public void onItemFavoriteClick() {
+        Movie movie = mMovieObservableField.get();
+        Log.d(TAG, "onItemFavoriteClick: " + movie.getTitle());
     }
 }
