@@ -32,8 +32,11 @@ public class ItemMovieViewModel extends BaseObservable {
     @BindingAdapter("imageUrl")
     public static void loadImage(ImageView imageView, String url) {
         RequestOptions requestOptions = new RequestOptions()
-                .error(R.drawable.ic_launcher_foreground);
-        Glide.with(imageView.getContext()).load(StringUtils.getUrlImage(url)).apply(requestOptions).into(imageView);
+                .error(R.drawable.default_movie);
+        Glide.with(imageView.getContext())
+                .load(StringUtils.getUrlImage(url))
+                .apply(requestOptions)
+                .into(imageView);
     }
 
     public void onClickItemTrending() {

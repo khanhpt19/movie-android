@@ -2,6 +2,7 @@ package com.pt.khanh.movie.screen.movies;
 
 import android.databinding.BaseObservable;
 import android.databinding.ObservableBoolean;
+import android.util.Log;
 
 import com.pt.khanh.movie.data.model.Movie;
 import com.pt.khanh.movie.data.model.MovieResult;
@@ -66,6 +67,7 @@ public class MoviesViewModel extends BaseObservable {
     }
 
     private void handleError(Throwable error) {
+        Log.d("AMEN", "handleError: " + error.getMessage());
         mIsLoading.set(true);
     }
 

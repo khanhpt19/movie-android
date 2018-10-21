@@ -16,8 +16,10 @@ import java.util.List;
 
 public class GenreAdapter extends RecyclerView.Adapter<GenreAdapter.ItemViewHolder> {
     private List<Genre> mGenres;
+    private Context mContext;
 
-    public GenreAdapter() {
+    public GenreAdapter(Context context) {
+        mContext = context;
         mGenres = new ArrayList<>();
     }
 
@@ -52,7 +54,7 @@ public class GenreAdapter extends RecyclerView.Adapter<GenreAdapter.ItemViewHold
         public ItemViewHolder(ItemGenreBinding binding) {
             super(binding.getRoot());
             mBinding = binding;
-            mItemGenreViewModel = new ItemGenreViewModel();
+            mItemGenreViewModel = new ItemGenreViewModel(mContext);
             mBinding.setViewModel(mItemGenreViewModel);
         }
 
