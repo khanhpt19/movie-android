@@ -24,7 +24,6 @@ import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 
 public class DetailViewModel extends AndroidViewModel {
-    public static final String TAG = "AMEN";
     public ObservableField<TrailerMovieAdapter> trailerMovieAdapter = new ObservableField<>();
     public GenreDetailAdapter mGenreDetailAdapter;
     private CastAdapter mCastAdapter;
@@ -73,7 +72,7 @@ public class DetailViewModel extends AndroidViewModel {
                 }, new Consumer<Throwable>() {
                     @Override
                     public void accept(Throwable throwable) throws Exception {
-                        Log.d("AMEN", "accept: " + throwable.getMessage());
+
                     }
                 });
         mCompositeDisposable.add(disposable);
@@ -91,7 +90,7 @@ public class DetailViewModel extends AndroidViewModel {
                 }, new Consumer<Throwable>() {
                     @Override
                     public void accept(Throwable throwable) throws Exception {
-                        Log.d(TAG, "loadRecommend: " + throwable.getMessage());
+
                     }
                 });
         mCompositeDisposable.add(disposable);
