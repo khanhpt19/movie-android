@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.databinding.BaseObservable;
 import android.databinding.ObservableField;
 import android.os.Parcelable;
+import android.util.Log;
 
 import com.pt.khanh.movie.data.model.Genre;
 import com.pt.khanh.movie.screen.movies.MoviesActivity;
@@ -23,6 +24,7 @@ public class ItemGenreViewModel extends BaseObservable {
     }
 
     public void onClickItemGenres() {
+        Log.d("AMEN", "onClickItemGenres: "  + mGenreObservableField.get().getName());
         mContext.startActivity(getMovieIntent(mContext, mGenreObservableField.get()));
     }
 

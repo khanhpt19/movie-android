@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.pt.khanh.movie.screen.genre.ItemGenreViewModel" />
+    </data>
+
+    <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/dp_4">
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/custom_button_rounded"
+            android:onClick="@{() -> viewModel.onClickItemGenres()}"
+            android:text="@{viewModel.mGenreObservableField.name}"
+            android:textColor="@color/color_sea_buckthorn"
+            app:cornerRadius="@dimen/dp_30" />
+    </android.support.constraint.ConstraintLayout>
+</layout>
