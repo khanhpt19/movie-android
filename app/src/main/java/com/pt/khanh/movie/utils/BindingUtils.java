@@ -47,4 +47,10 @@ public final class BindingUtils {
                 .load(resource)
                 .into(imageView);
     }
+
+    @BindingAdapter({"recyclerAdapter"})
+    public static void setAdapterForRecyclerView(RecyclerView recyclerView,
+                                                 RecyclerView.Adapter adapter) {
+        recyclerView.setAdapter(adapter);
+    }
 }
