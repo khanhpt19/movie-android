@@ -44,7 +44,7 @@ public interface MovieAPI {
                                         @Query("query") String name,
                                         @Query("page") int page);
 
-    @GET("trending/all/day")
+    @GET("trending/movie/week")
     Observable<MovieResult> getMoviesTrend(@Query("api_key") String api_key);
 
     @GET("person/{person_id}")

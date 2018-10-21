@@ -6,6 +6,7 @@ import android.databinding.BindingAdapter;
 import android.databinding.ObservableField;
 import android.support.annotation.NonNull;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
@@ -77,7 +78,7 @@ public class HomeViewModel extends AndroidViewModel {
     }
 
     private void handleTrendingError(Throwable error) {
-
+        Log.d("AMEN", "handleTrendingError: " + error.getMessage());
     }
 
     private void handleTrendingResponse(MovieResult response) {

@@ -1,5 +1,6 @@
 package com.pt.khanh.movie.screen.genre;
 
+import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -9,6 +10,9 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.pt.khanh.movie.R;
+import com.pt.khanh.movie.data.repository.MovieRepository;
+import com.pt.khanh.movie.data.source.remote.MovieRemoteDataSource;
+import com.pt.khanh.movie.databinding.FragmentGenreBinding;
 
 public class GenreFragment extends Fragment {
     private static GenreFragment sInstance;
@@ -24,6 +28,12 @@ public class GenreFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_genre, container, false);
+        FragmentGenreBinding binding = DataBindingUtil.inflate(
+                inflater, R.layout.fragment_genre, container, false);
+        MovieRepository repository =
+                MovieRepository.getInstance(MovieRemoteDataSource.getInstance());
+        GenreViewModel viewModel = new GenreViewModel(repository);
+        binding.setViewModel(viewModel);
+        return binding.getRoot();
     }
 }
