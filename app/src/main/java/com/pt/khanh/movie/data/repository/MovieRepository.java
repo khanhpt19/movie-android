@@ -4,6 +4,7 @@ import com.pt.khanh.movie.data.model.Cast;
 import com.pt.khanh.movie.data.model.GenresResult;
 import com.pt.khanh.movie.data.model.MovieDetail;
 import com.pt.khanh.movie.data.model.MovieResult;
+import com.pt.khanh.movie.data.model.ReviewResult;
 import com.pt.khanh.movie.data.source.MovieDatasource;
 import com.pt.khanh.movie.data.source.remote.MovieRemoteDataSource;
 
@@ -68,5 +69,15 @@ public class MovieRepository implements MovieDatasource.RemoteDataSource {
     @Override
     public Observable<Cast> getCastDetail(long id) {
         return mRemoteDataSource.getCastDetail(id);
+    }
+
+    @Override
+    public Observable<MovieResult> getMovieRecommend(long id, int page) {
+        return mRemoteDataSource.getMovieRecommend(id, page);
+    }
+
+    @Override
+    public Observable<ReviewResult> getReview(long id, int page) {
+        return mRemoteDataSource.getReview(id, page);
     }
 }

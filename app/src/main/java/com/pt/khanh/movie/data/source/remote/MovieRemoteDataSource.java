@@ -5,6 +5,7 @@ import com.pt.khanh.movie.data.model.Cast;
 import com.pt.khanh.movie.data.model.GenresResult;
 import com.pt.khanh.movie.data.model.MovieDetail;
 import com.pt.khanh.movie.data.model.MovieResult;
+import com.pt.khanh.movie.data.model.ReviewResult;
 import com.pt.khanh.movie.data.source.MovieDatasource;
 import com.pt.khanh.movie.data.source.remote.service.MovieAPI;
 import com.pt.khanh.movie.data.source.remote.service.MovieServiceClient;
@@ -70,5 +71,15 @@ public class MovieRemoteDataSource implements MovieDatasource.RemoteDataSource {
     @Override
     public Observable<Cast> getCastDetail(long id) {
         return mAPI.getCastDetail(id, BuildConfig.API_KEY);
+    }
+
+    @Override
+    public Observable<MovieResult> getMovieRecommend(long id, int page) {
+        return mAPI.getRecommend(id, BuildConfig.API_KEY, page);
+    }
+
+    @Override
+    public Observable<ReviewResult> getReview(long id, int page) {
+        return mAPI.getReview(id, BuildConfig.API_KEY, page);
     }
 }

@@ -70,4 +70,5 @@ dependencies {
     implementation files('libs/YouTubeAndroidPlayerApi.jar')
     implementation 'de.hdodenhof:circleimageview:2.2.0'
 
+    implementation 'com.borjabravo:readmoretextview:2.1.0'
 }

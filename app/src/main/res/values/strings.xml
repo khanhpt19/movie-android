@@ -30,4 +30,5 @@
     <string name="name_popular">Popular Movies</string>
     <string name="toast_movie_not_exist">Movie not exist! Please try other movie.</string>
     <string name="hint_search">Enter movie name</string>
+    <string name="text_read_all_review">Read all review</string>
 </resources>

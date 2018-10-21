@@ -4,6 +4,7 @@ import com.pt.khanh.movie.data.model.Cast;
 import com.pt.khanh.movie.data.model.GenresResult;
 import com.pt.khanh.movie.data.model.MovieDetail;
 import com.pt.khanh.movie.data.model.MovieResult;
+import com.pt.khanh.movie.data.model.ReviewResult;
 
 import io.reactivex.Observable;
 import retrofit2.http.GET;
@@ -49,4 +50,10 @@ public interface MovieAPI {
 
     @GET("person/{person_id}")
     Observable<Cast> getCastDetail(@Path("person_id") long personId, @Query("api_key") String apiKey);
+
+    @GET("movie/{id}/recommendations")
+    Observable<MovieResult> getRecommend(@Path("id") long movieId, @Query("api_key") String apiKey, @Query("page") int page);
+
+    @GET("movie/{id}/reviews")
+    Observable<ReviewResult> getReview(@Path("id") long movieId, @Query("api_key") String apiKey, @Query("page") int page);
 }
