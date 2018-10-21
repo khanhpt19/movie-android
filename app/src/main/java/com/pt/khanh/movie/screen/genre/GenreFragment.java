@@ -32,7 +32,7 @@ public class GenreFragment extends Fragment {
                 inflater, R.layout.fragment_genre, container, false);
         MovieRepository repository =
                 MovieRepository.getInstance(MovieRemoteDataSource.getInstance());
-        GenreViewModel viewModel = new GenreViewModel(repository);
+        GenreViewModel viewModel = new GenreViewModel(getContext(), repository);
         binding.setViewModel(viewModel);
         return binding.getRoot();
     }

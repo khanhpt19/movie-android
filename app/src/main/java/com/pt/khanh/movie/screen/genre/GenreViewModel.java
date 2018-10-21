@@ -1,5 +1,6 @@
 package com.pt.khanh.movie.screen.genre;
 
+import android.content.Context;
 import android.databinding.BaseObservable;
 import android.databinding.ObservableField;
 
@@ -22,10 +23,10 @@ public class GenreViewModel extends BaseObservable {
     private MovieRepository mMoviesRepository;
     private CompositeDisposable mCompositeDisposable = new CompositeDisposable();
 
-    public GenreViewModel(MovieRepository moviesRepository) {
+    public GenreViewModel(Context context, MovieRepository moviesRepository) {
         mMoviesRepository = moviesRepository;
         observableDecoration.set(new GridSpacingItemDecoration(SPAN_COUT, SPACING, true));
-        mGenreAdapter = new GenreAdapter();
+        mGenreAdapter = new GenreAdapter(context);
         loadGenres();
     }
 
