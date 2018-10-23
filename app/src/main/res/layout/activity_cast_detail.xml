@@ -9,102 +9,113 @@
             type="com.pt.khanh.movie.screen.detail.castDetail.CastDetailViewModel" />
     </data>
 
-    <ScrollView
+    <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <android.support.constraint.ConstraintLayout
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            app:theme="@style/ThemeOverlay.AppCompat.Dark"
+            app:title="CastDetail" />
 
-            <android.support.v7.widget.Toolbar
-                android:id="@+id/toolbar"
+        <android.support.v4.widget.NestedScrollView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:fillViewport="true"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/toolbar">
+
+            <android.support.constraint.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                android:background="?attr/colorPrimary"
-                app:theme="@style/ThemeOverlay.AppCompat.Dark"
-                app:title="CastDetail" />
+                android:layout_height="match_parent">
 
-            <ImageView
-                android:id="@+id/image_cast"
-                imageUrl="@{viewModel.mCastObservableField.profilePath}"
-                android:layout_width="@dimen/dp_100"
-                android:layout_height="@dimen/dp_100"
-                android:layout_margin="@dimen/dp_16"
-                android:scaleType="centerCrop"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/toolbar" />
+                <ImageView
+                    android:id="@+id/image_cast"
+                    imageUrl="@{viewModel.mCastObservableField.profilePath}"
+                    android:layout_width="@dimen/dp_100"
+                    android:layout_height="@dimen/dp_100"
+                    android:layout_margin="@dimen/dp_16"
+                    android:scaleType="centerCrop"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent" />
 
-            <TextView
-                android:id="@+id/text_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/dp_16"
-                android:text="@{viewModel.mCastObservableField.name}"
-                android:textColor="@color/color_sea_buckthorn"
-                android:textSize="@dimen/sp_20"
-                app:layout_constraintLeft_toRightOf="@id/image_cast"
-                app:layout_constraintTop_toBottomOf="@id/toolbar" />
+                <TextView
+                    android:id="@+id/text_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/dp_16"
+                    android:text="@{viewModel.mCastObservableField.name}"
+                    android:textColor="@color/color_sea_buckthorn"
+                    android:textSize="@dimen/sp_20"
+                    app:layout_constraintLeft_toRightOf="@id/image_cast" />
 
-            <TextView
-                android:id="@+id/text_birthday"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dp_16"
-                android:text="@{viewModel.mCastObservableField.birthday}"
-                app:layout_constraintLeft_toLeftOf="@id/text_name"
-                app:layout_constraintTop_toBottomOf="@id/text_name" />
+                <TextView
+                    android:id="@+id/text_birthday"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_16"
+                    android:text="@{viewModel.mCastObservableField.birthday}"
+                    app:layout_constraintLeft_toLeftOf="@id/text_name"
+                    app:layout_constraintTop_toBottomOf="@id/text_name" />
 
-            <TextView
-                android:id="@+id/text_place_of_birthday"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@{viewModel.mCastObservableField.placeOfBirth}"
-                app:layout_constraintLeft_toLeftOf="@id/text_birthday"
-                app:layout_constraintTop_toBottomOf="@id/text_birthday" />
+                <TextView
+                    android:id="@+id/text_place_of_birthday"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{viewModel.mCastObservableField.placeOfBirth}"
+                    app:layout_constraintLeft_toLeftOf="@id/text_birthday"
+                    app:layout_constraintTop_toBottomOf="@id/text_birthday" />
 
-            <TextView
-                android:id="@+id/title_biography"
-                style="@style/StyleTextTitle"
-                android:layout_marginLeft="@dimen/dp_16"
-                android:text="@string/text_biography"
-                android:textColor="@color/color_sea_buckthorn"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/image_cast" />
+                <TextView
+                    android:id="@+id/title_biography"
+                    style="@style/StyleTextTitle"
+                    android:layout_marginLeft="@dimen/dp_16"
+                    android:text="@string/text_biography"
+                    android:textColor="@color/color_sea_buckthorn"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/image_cast" />
 
-            <com.borjabravo.readmoretextview.ReadMoreTextView
-                android:id="@+id/text_biography"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/dp_8"
-                android:layout_marginRight="@dimen/dp_8"
-                android:ellipsize="end"
-                android:text="@{viewModel.mCastObservableField.biography}"
-                app:colorClickableText="@color/colorPrimary"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/title_biography" />
+                <com.borjabravo.readmoretextview.ReadMoreTextView
+                    android:id="@+id/text_biography"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dp_8"
+                    android:layout_marginRight="@dimen/dp_8"
+                    android:ellipsize="end"
+                    android:text="@{viewModel.mCastObservableField.biography}"
+                    app:colorClickableText="@color/colorPrimary"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/title_biography" />
 
-            <TextView
-                android:id="@+id/text_movies"
-                style="@style/StyleTextTitle"
-                android:layout_marginLeft="@dimen/dp_16"
-                android:text="@string/text_movies"
-                android:textColor="@color/color_sea_buckthorn"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/text_biography" />
+                <TextView
+                    android:id="@+id/text_movies"
+                    style="@style/StyleTextTitle"
+                    android:layout_marginLeft="@dimen/dp_16"
+                    android:text="@string/text_movies"
+                    android:textColor="@color/color_sea_buckthorn"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/text_biography" />
 
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/recycler_view_movies"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                app:layoutManager="android.support.v7.widget.LinearLayoutManager"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/text_movies"
-                app:recyclerAdapter="@{viewModel.adapter}" />
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/recycler_view_movies"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    app:layoutManager="android.support.v7.widget.LinearLayoutManager"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/text_movies"
+                    app:recyclerAdapter="@{viewModel.adapter}" />
+            </android.support.constraint.ConstraintLayout>
 
-        </android.support.constraint.ConstraintLayout>
-    </ScrollView>
+        </android.support.v4.widget.NestedScrollView>
+
+
+    </android.support.constraint.ConstraintLayout>
 </layout>

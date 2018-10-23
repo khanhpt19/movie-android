@@ -17,6 +17,8 @@
             android:id="@+id/image_avatar"
             android:layout_width="@dimen/dp_30"
             android:layout_height="@dimen/dp_30"
+            android:layout_marginTop="@dimen/dp_4"
+            app:layout_constraintTop_toTopOf="parent"
             android:src="@drawable/default_person1" />
 
         <TextView
@@ -26,7 +28,7 @@
             android:layout_marginLeft="@dimen/dp_8"
             android:layout_marginRight="@dimen/dp_8"
             android:text="@{viewModel.mReviewObservableField.author}"
-            android:textColor="@color/color_sea_buckthorn"
+            android:textColor="@color/color_cocoa_brown"
             app:layout_constraintLeft_toRightOf="@id/image_avatar"
             app:layout_constraintRight_toLeftOf="@id/button_like"
             app:layout_constraintTop_toTopOf="parent" />
@@ -36,6 +38,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight="@dimen/dp_4"
+            android:layout_marginTop="@dimen/dp_8"
             android:background="@null"
             android:src="@drawable/ic_thumb_up"
             app:layout_constraintEnd_toEndOf="parent"

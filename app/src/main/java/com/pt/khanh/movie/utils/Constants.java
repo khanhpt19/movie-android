@@ -26,6 +26,7 @@ public class Constants {
     public static final String EXTRA_CAST = "com.framgia.moviedb_23.EXTRA_CAST";
     public static final String EXTRA_CATEGORY = "com.framgia.moviedb_23.EXTRA_CATEGORY";
     public static final String EXTRA_MOVIE = "com.framgia.moviedb_23.EXTRA_MOVIE";
+    public static final String EXTRA_TRAILER = "com.framgia.moviedb_23.EXTRA_KEY_TRAILER";
     public static final String BUNDLE_MOVIE = "com.framgia.moviedb_23.BUNDLE_MOVIE";
     public static final String BUNDLE_MOVIE_FAVOURITE = "com.framgia.moviedb_23.BUNDLE_MOVIE_FAVOURITE";
 }

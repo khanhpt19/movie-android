@@ -3,7 +3,7 @@ package com.pt.khanh.movie.data.source.remote;
 import com.pt.khanh.movie.BuildConfig;
 import com.pt.khanh.movie.data.model.Cast;
 import com.pt.khanh.movie.data.model.GenresResult;
-import com.pt.khanh.movie.data.model.MovieDetail;
+import com.pt.khanh.movie.data.model.Movie;
 import com.pt.khanh.movie.data.model.MovieResult;
 import com.pt.khanh.movie.data.model.ReviewResult;
 import com.pt.khanh.movie.data.source.MovieDatasource;
@@ -44,7 +44,7 @@ public class MovieRemoteDataSource implements MovieDatasource.RemoteDataSource {
     }
 
     @Override
-    public Observable<MovieDetail> getMovie(long id) {
+    public Observable<Movie> getMovie(long id) {
         return mAPI.getMovie(id, BuildConfig.API_KEY, StringUtils.appendToResponse());
     }
 

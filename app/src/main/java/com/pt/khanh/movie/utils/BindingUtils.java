@@ -8,6 +8,9 @@ import android.support.v7.widget.RecyclerView;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
+import com.google.android.youtube.player.YouTubePlayer;
+import com.google.android.youtube.player.YouTubePlayerView;
+import com.pt.khanh.movie.BuildConfig;
 import com.pt.khanh.movie.screen.genre.GridSpacingItemDecoration;
 import com.rd.PageIndicatorView;
 
@@ -52,5 +55,12 @@ public final class BindingUtils {
     public static void setAdapterForRecyclerView(RecyclerView recyclerView,
                                                  RecyclerView.Adapter adapter) {
         recyclerView.setAdapter(adapter);
+    }
+
+    @BindingAdapter("onInitializedListener")
+    public static void setOnInitializedListener(
+            YouTubePlayerView youTubePlayerView, YouTubePlayer.OnInitializedListener listener){
+        if(listener != null)
+        youTubePlayerView.initialize(BuildConfig.YOUTUBE_KEY, listener);
     }
 }
