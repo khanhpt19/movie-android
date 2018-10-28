@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 
 import com.pt.khanh.movie.R;
 import com.pt.khanh.movie.data.repository.MovieRepository;
+import com.pt.khanh.movie.data.source.local.MovieLocalDatasource;
 import com.pt.khanh.movie.data.source.remote.MovieRemoteDataSource;
 import com.pt.khanh.movie.databinding.ActivitySearchBinding;
 
@@ -16,7 +17,8 @@ public class SearchActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         MovieRepository movieRepository = MovieRepository.getInstance(
-                MovieRemoteDataSource.getInstance());
+                MovieRemoteDataSource.getInstance(),
+                MovieLocalDatasource.getInstance(this));
         SearchViewModel searchViewModel = new SearchViewModel(this, movieRepository);
         ActivitySearchBinding binding = DataBindingUtil
                 .setContentView(this, R.layout.activity_search);

@@ -10,6 +10,7 @@ import com.pt.khanh.movie.data.model.Category;
 import com.pt.khanh.movie.data.model.Company;
 import com.pt.khanh.movie.data.model.Genre;
 import com.pt.khanh.movie.data.repository.MovieRepository;
+import com.pt.khanh.movie.data.source.local.MovieLocalDatasource;
 import com.pt.khanh.movie.data.source.remote.MovieRemoteDataSource;
 import com.pt.khanh.movie.databinding.ActivityMoviesBinding;
 import com.pt.khanh.movie.utils.Constants;
@@ -21,7 +22,8 @@ public class MoviesActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         MovieRepository repository = MovieRepository.getInstance(
-                MovieRemoteDataSource.getInstance());
+                MovieRemoteDataSource.getInstance(),
+                MovieLocalDatasource.getInstance(this));
         mViewModel = new MoviesViewModel(repository);
         ActivityMoviesBinding binding = DataBindingUtil
                 .setContentView(this, R.layout.activity_movies);

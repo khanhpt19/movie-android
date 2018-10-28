@@ -14,6 +14,7 @@ import com.bumptech.glide.request.RequestOptions;
 import com.pt.khanh.movie.R;
 import com.pt.khanh.movie.data.model.Movie;
 import com.pt.khanh.movie.data.repository.MovieRepository;
+import com.pt.khanh.movie.data.source.local.MovieLocalDatasource;
 import com.pt.khanh.movie.data.source.remote.MovieRemoteDataSource;
 import com.pt.khanh.movie.screen.detail.DetailActivity;
 import com.pt.khanh.movie.utils.Constants;
@@ -36,7 +37,8 @@ public class ItemMovieViewModel extends BaseObservable {
     public ItemMovieViewModel(Context context) {
         mContext = context;
         mRepository = MovieRepository
-                .getInstance(MovieRemoteDataSource.getInstance());
+                .getInstance(MovieRemoteDataSource.getInstance(),
+                        MovieLocalDatasource.getInstance(mContext));
     }
 
     public void setMovie(Movie movie) {

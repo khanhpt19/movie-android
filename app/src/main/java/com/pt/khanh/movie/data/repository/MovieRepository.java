@@ -6,22 +6,28 @@ import com.pt.khanh.movie.data.model.Movie;
 import com.pt.khanh.movie.data.model.MovieResult;
 import com.pt.khanh.movie.data.model.ReviewResult;
 import com.pt.khanh.movie.data.source.MovieDatasource;
+import com.pt.khanh.movie.data.source.local.MovieLocalDatasource;
 import com.pt.khanh.movie.data.source.remote.MovieRemoteDataSource;
+
+import java.util.List;
 
 import io.reactivex.Observable;
 
-public class MovieRepository implements MovieDatasource.RemoteDataSource {
+public class MovieRepository implements MovieDatasource.RemoteDataSource, MovieDatasource.LocalDataSource {
     private static MovieRepository sInstance;
     private MovieRemoteDataSource mRemoteDataSource;
+    private MovieLocalDatasource mLocalDatasource;
 
-    public MovieRepository(MovieRemoteDataSource remoteDataSource) {
+    public MovieRepository(MovieRemoteDataSource remoteDataSource,
+                           MovieLocalDatasource localDatasource) {
         mRemoteDataSource = remoteDataSource;
+        mLocalDatasource = localDatasource;
     }
 
     public static synchronized MovieRepository getInstance(
-            MovieRemoteDataSource remoteDataSource) {
+            MovieRemoteDataSource remoteDataSource, MovieLocalDatasource localDatasource) {
         if (sInstance == null) {
-            sInstance = new MovieRepository(remoteDataSource);
+            sInstance = new MovieRepository(remoteDataSource, localDatasource);
         }
         return sInstance;
     }
@@ -79,5 +85,30 @@ public class MovieRepository implements MovieDatasource.RemoteDataSource {
     @Override
     public Observable<ReviewResult> getReview(long id, int page) {
         return mRemoteDataSource.getReview(id, page);
+    }
+
+    @Override
+    public List<Movie> getMoviesLocal() {
+        return mLocalDatasource.getMoviesLocal();
+    }
+
+    @Override
+    public Movie getMovieLocal(long id) {
+        return mLocalDatasource.getMovieLocal(id);
+    }
+
+    @Override
+    public boolean insertMovie(Movie movie) {
+        return mLocalDatasource.insertMovie(movie);
+    }
+
+    @Override
+    public boolean deleteMovie(Movie movie) {
+        return mLocalDatasource.deleteMovie(movie);
+    }
+
+    @Override
+    public boolean isFavourite(Movie movie) {
+        return mLocalDatasource.isFavourite(movie);
     }
 }
