@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 
 import com.pt.khanh.movie.R;
 import com.pt.khanh.movie.data.repository.MovieRepository;
+import com.pt.khanh.movie.data.source.local.MovieLocalDatasource;
 import com.pt.khanh.movie.data.source.remote.MovieRemoteDataSource;
 import com.pt.khanh.movie.databinding.FragmentGenreBinding;
 
@@ -31,7 +32,8 @@ public class GenreFragment extends Fragment {
         FragmentGenreBinding binding = DataBindingUtil.inflate(
                 inflater, R.layout.fragment_genre, container, false);
         MovieRepository repository =
-                MovieRepository.getInstance(MovieRemoteDataSource.getInstance());
+                MovieRepository.getInstance(MovieRemoteDataSource.getInstance(),
+                        MovieLocalDatasource.getInstance(getContext()));
         GenreViewModel viewModel = new GenreViewModel(getContext(), repository);
         binding.setViewModel(viewModel);
         return binding.getRoot();

@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 
 import com.pt.khanh.movie.R;
 import com.pt.khanh.movie.data.repository.MovieRepository;
+import com.pt.khanh.movie.data.source.local.MovieLocalDatasource;
 import com.pt.khanh.movie.data.source.remote.MovieRemoteDataSource;
 import com.pt.khanh.movie.databinding.FragmentHomeBinding;
 
@@ -35,7 +36,8 @@ public class HomeFragment extends Fragment {
         View view = mHomeBinding.getRoot();
 
         MovieRepository repository =
-                MovieRepository.getInstance(MovieRemoteDataSource.getInstance());
+                MovieRepository.getInstance(MovieRemoteDataSource.getInstance(),
+                        MovieLocalDatasource.getInstance(getContext()));
         mHomeViewModel = ViewModelProviders.of(getActivity()).get(HomeViewModel.class);
         mHomeBinding.setViewModel(mHomeViewModel);
         mHomeViewModel.setupView(repository);
