@@ -28,7 +28,7 @@
     <string name="key_now_playing">now_playing</string>
     <string name="key_popular">popular</string>
     <string name="name_popular">Popular Movies</string>
-    <string name="toast_movie_not_exist">Movie not exist! Please try other movie.</string>
+    <string name="toast_movie_not_exist">Movie not exist! Please try another movie.</string>
     <string name="hint_search">Enter movie name</string>
     <string name="text_read_all_review">Read all review</string>
     <string name="title_recommend">Recommend</string>

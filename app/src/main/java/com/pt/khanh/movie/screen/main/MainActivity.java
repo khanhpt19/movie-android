@@ -1,6 +1,8 @@
 package com.pt.khanh.movie.screen.main;
 
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.Context;
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -11,6 +13,7 @@ import android.view.MenuItem;
 
 import com.pt.khanh.movie.R;
 import com.pt.khanh.movie.databinding.ActivityMainBinding;
+import com.pt.khanh.movie.screen.search.SearchActivity;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -35,9 +38,13 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if(item.getItemId() == R.id.action_search){
-            Log.d("AMEN", "onOptionsItemSelected: ");
+            startActivity(getSearchIntent(this));
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+    public static Intent getSearchIntent(Context context) {
+        Intent intent = new Intent(context, SearchActivity.class);
+        return intent;
     }
 }
