@@ -5,7 +5,9 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.RecyclerView;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.google.android.youtube.player.YouTubePlayer;
@@ -59,8 +61,15 @@ public final class BindingUtils {
 
     @BindingAdapter("onInitializedListener")
     public static void setOnInitializedListener(
-            YouTubePlayerView youTubePlayerView, YouTubePlayer.OnInitializedListener listener){
-        if(listener != null)
-        youTubePlayerView.initialize(BuildConfig.YOUTUBE_KEY, listener);
+            YouTubePlayerView youTubePlayerView, YouTubePlayer.OnInitializedListener listener) {
+        if (listener != null)
+            youTubePlayerView.initialize(BuildConfig.YOUTUBE_KEY, listener);
+    }
+
+    @BindingAdapter("onEditorActionListener")
+    public static void setOnEditorActionListener(EditText editText,
+                                                 TextView.OnEditorActionListener listener) {
+        if (listener != null)
+            editText.setOnEditorActionListener(listener);
     }
 }

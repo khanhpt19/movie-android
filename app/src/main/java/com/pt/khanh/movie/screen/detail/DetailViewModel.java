@@ -119,8 +119,9 @@ public class DetailViewModel {
             public void onInitializationSuccess(YouTubePlayer.Provider provider,
                                                 YouTubePlayer youTubePlayer, boolean b) {
                 if (!b) {
-                    youTubePlayer.cueVideo(
-                            response.getTrailerMovieResult().getTrailerMovies().get(0).getKey());
+                    if (response.getTrailerMovieResult().getTrailerMovies().size() != 0)
+                        youTubePlayer.cueVideo(
+                                response.getTrailerMovieResult().getTrailerMovies().get(0).getKey());
                 }
             }
 

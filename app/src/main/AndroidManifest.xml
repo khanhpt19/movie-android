@@ -25,7 +25,8 @@
         <activity
             android:name=".screen.detail.DetailActivity"
             android:configChanges="keyboardHidden|orientation|screenSize" />
-        <activity android:name=".screen.detail.castDetail.CastDetailActivity"></activity>
+        <activity android:name=".screen.detail.castDetail.CastDetailActivity" />
+        <activity android:name=".screen.search.SearchActivity" />
     </application>
 
 </manifest>
