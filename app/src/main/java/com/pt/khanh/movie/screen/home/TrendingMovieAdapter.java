@@ -10,12 +10,14 @@ import android.view.ViewGroup;
 import com.pt.khanh.movie.R;
 import com.pt.khanh.movie.data.model.Movie;
 import com.pt.khanh.movie.databinding.ItemTrendingBinding;
+import com.pt.khanh.movie.screen.movies.MoviesAdapter;
 
 import java.util.List;
 
 public class TrendingMovieAdapter extends PagerAdapter {
     private List<Movie> mMovies;
     private ItemMovieViewModel mItemMovieViewModel;
+    private MoviesAdapter.ItemBookmarkListener mListener;
 
     public TrendingMovieAdapter(List<Movie> movies) {
         mMovies = movies;
@@ -24,7 +26,7 @@ public class TrendingMovieAdapter extends PagerAdapter {
     @NonNull
     @Override
     public Object instantiateItem(@NonNull ViewGroup container, int position) {
-        mItemMovieViewModel = new ItemMovieViewModel(container.getContext());
+        mItemMovieViewModel = new ItemMovieViewModel(container.getContext(), mListener);
         ItemTrendingBinding binding = DataBindingUtil.inflate(
                 LayoutInflater.from(container.getContext()),
                 R.layout.item_trending, container, true);

@@ -6,7 +6,7 @@ import android.databinding.BaseObservable;
 import android.databinding.BindingAdapter;
 import android.databinding.ObservableField;
 import android.os.Parcelable;
-import android.util.Log;
+import android.view.View;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
@@ -17,25 +17,20 @@ import com.pt.khanh.movie.data.repository.MovieRepository;
 import com.pt.khanh.movie.data.source.local.MovieLocalDatasource;
 import com.pt.khanh.movie.data.source.remote.MovieRemoteDataSource;
 import com.pt.khanh.movie.screen.detail.DetailActivity;
+import com.pt.khanh.movie.screen.movies.MoviesAdapter;
 import com.pt.khanh.movie.utils.Constants;
 import com.pt.khanh.movie.utils.StringUtils;
 
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.CompositeDisposable;
-import io.reactivex.disposables.Disposable;
-import io.reactivex.functions.Consumer;
-import io.reactivex.schedulers.Schedulers;
-
 public class ItemMovieViewModel extends BaseObservable {
-    private static final String TAG = "AMEN";
     public ObservableField<Movie> mMovieObservableField = new ObservableField<>();
-    public ObservableField<Movie> mMovieDetailObservableField = new ObservableField<>();
     private MovieRepository mRepository;
     private Context mContext;
+    private MoviesAdapter.ItemBookmarkListener mListener;
+    private Movie mMovie;
 
-
-    public ItemMovieViewModel(Context context) {
+    public ItemMovieViewModel(Context context, MoviesAdapter.ItemBookmarkListener listener) {
         mContext = context;
+        mListener = listener;
         mRepository = MovieRepository
                 .getInstance(MovieRemoteDataSource.getInstance(),
                         MovieLocalDatasource.getInstance(mContext));
@@ -55,49 +50,33 @@ public class ItemMovieViewModel extends BaseObservable {
                 .into(imageView);
     }
 
-    public void onClickItemTrending() {
-        Disposable disposable = mRepository.getMovie(mMovieObservableField.get().getId())
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Consumer<Movie>() {
-                    @Override
-                    public void accept(Movie movieDetail) throws Exception {
-                        mMovieDetailObservableField.set(movieDetail);
-                        mContext.startActivity(getMovieIntent(mContext, mMovieObservableField.get(), movieDetail));
-                    }
-                });
-        CompositeDisposable compositeDisposable = new CompositeDisposable();
-        compositeDisposable.add(disposable);
-    }
 
-    public ObservableField<Movie> getMovieDetailObservableField() {
-        return mMovieDetailObservableField;
+    public void onClickItemTrending() {
+        mContext.startActivity(getMovieIntent(mContext, mMovieObservableField.get()));
     }
 
     public void onItemClick() {
-        Disposable disposable = mRepository.getMovie(mMovieObservableField.get().getId())
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Consumer<Movie>() {
-                    @Override
-                    public void accept(Movie movieDetail) throws Exception {
-                        mMovieDetailObservableField.set(movieDetail);
-                        mContext.startActivity(getMovieIntent(mContext, mMovieObservableField.get(), movieDetail));
-                    }
-                });
-        CompositeDisposable compositeDisposable = new CompositeDisposable();
-        compositeDisposable.add(disposable);
+        mContext.startActivity(getMovieIntent(mContext, mMovieObservableField.get()));
     }
 
-    public void onItemFavoriteClick() {
-        Movie movie = mMovieObservableField.get();
-        Log.d(TAG, "onItemFavoriteClick: " + movie.getTitle());
+    public void onBookmarkClick(View view) {
+        mListener.onBookmarkClick(mMovieObservableField.get());
     }
 
-    public static Intent getMovieIntent(Context context, Movie movie, Movie movieDetail) {
+    public boolean getIsFavourite() {
+        mMovie = mMovieObservableField.get();
+        if (mRepository.isFavourite(mMovie)) {
+            notifyChange();
+            return true;
+        } else {
+            notifyChange();
+            return false;
+        }
+    }
+
+    public static Intent getMovieIntent(Context context, Movie movie) {
         Intent intent = new Intent(context, DetailActivity.class);
         intent.putExtra(Constants.EXTRA_MOVIE, (Parcelable) movie);
-        intent.putExtra(Constants.EXTRA_TRAILER, (Parcelable) movieDetail);
         return intent;
     }
 }

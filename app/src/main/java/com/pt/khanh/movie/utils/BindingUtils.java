@@ -14,6 +14,7 @@ import com.google.android.youtube.player.YouTubePlayer;
 import com.google.android.youtube.player.YouTubePlayerView;
 import com.pt.khanh.movie.BuildConfig;
 import com.pt.khanh.movie.screen.genre.GridSpacingItemDecoration;
+import com.pt.khanh.movie.screen.movies.EndLessRecyclerOnScrollListener;
 import com.rd.PageIndicatorView;
 
 public final class BindingUtils {
@@ -71,5 +72,11 @@ public final class BindingUtils {
                                                  TextView.OnEditorActionListener listener) {
         if (listener != null)
             editText.setOnEditorActionListener(listener);
+    }
+
+    @BindingAdapter({"setOnScroll"})
+    public static void setScroll(RecyclerView recyclerView,
+                                 EndLessRecyclerOnScrollListener listener) {
+        recyclerView.addOnScrollListener(listener);
     }
 }

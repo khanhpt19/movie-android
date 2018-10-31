@@ -17,6 +17,7 @@ import java.util.List;
 
 public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.ItemViewHolder> {
     private List<Movie> mMovies;
+    private ItemBookmarkListener mListener;
 
     public MoviesAdapter() {
         mMovies = new ArrayList<>();
@@ -28,7 +29,7 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.ItemViewHo
         ItemMovieBinding binding = DataBindingUtil.inflate(
                 LayoutInflater.from(parent.getContext()),
                 R.layout.item_movie, parent, false);
-        return new ItemViewHolder(parent.getContext(), binding);
+        return new ItemViewHolder(parent.getContext(), binding, mListener);
     }
 
     @Override
@@ -54,14 +55,18 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.ItemViewHo
         notifyDataSetChanged();
     }
 
+    public void setListener(ItemBookmarkListener listener) {
+        mListener = listener;
+    }
+
     public class ItemViewHolder extends RecyclerView.ViewHolder {
         private ItemMovieBinding mBinding;
         private ItemMovieViewModel mItemMoviesViewModel;
 
-        public ItemViewHolder(Context activity, ItemMovieBinding binding) {
+        public ItemViewHolder(Context activity, ItemMovieBinding binding, ItemBookmarkListener listener) {
             super(binding.getRoot());
             mBinding = binding;
-            mItemMoviesViewModel = new ItemMovieViewModel(activity);
+            mItemMoviesViewModel = new ItemMovieViewModel(activity, listener);
             mBinding.setViewModel(mItemMoviesViewModel);
         }
 
@@ -69,5 +74,9 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.ItemViewHo
             mItemMoviesViewModel.setMovie(movie);
             mBinding.executePendingBindings();
         }
+    }
+
+    public interface ItemBookmarkListener {
+        void onBookmarkClick(Movie movie);
     }
 }
