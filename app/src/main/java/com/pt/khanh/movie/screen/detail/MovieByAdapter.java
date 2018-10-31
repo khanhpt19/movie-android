@@ -11,12 +11,14 @@ import com.pt.khanh.movie.R;
 import com.pt.khanh.movie.data.model.Movie;
 import com.pt.khanh.movie.databinding.ItemMovieByBinding;
 import com.pt.khanh.movie.screen.home.ItemMovieViewModel;
+import com.pt.khanh.movie.screen.movies.MoviesAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class MovieByAdapter extends RecyclerView.Adapter<MovieByAdapter.ItemViewHolder> {
     private List<Movie> mMovies;
+    private MoviesAdapter.ItemBookmarkListener mListener;
 
     public MovieByAdapter() {
         mMovies = new ArrayList<>();
@@ -28,7 +30,7 @@ public class MovieByAdapter extends RecyclerView.Adapter<MovieByAdapter.ItemView
         ItemMovieByBinding binding = DataBindingUtil.inflate(
                 LayoutInflater.from(parent.getContext()),
                 R.layout.item_movie_by, parent, false);
-        return new ItemViewHolder(parent.getContext(), binding);
+        return new ItemViewHolder(parent.getContext(), binding, mListener);
     }
 
     @Override
@@ -51,10 +53,10 @@ public class MovieByAdapter extends RecyclerView.Adapter<MovieByAdapter.ItemView
         private ItemMovieByBinding mBinding;
         private ItemMovieViewModel mItemMoviesViewModel;
 
-        public ItemViewHolder(Context activity, ItemMovieByBinding binding) {
+        public ItemViewHolder(Context activity, ItemMovieByBinding binding, MoviesAdapter.ItemBookmarkListener listener) {
             super(binding.getRoot());
             mBinding = binding;
-            mItemMoviesViewModel = new ItemMovieViewModel(activity);
+            mItemMoviesViewModel = new ItemMovieViewModel(activity, listener);
             mBinding.setViewModel(mItemMoviesViewModel);
         }
 

@@ -2,7 +2,6 @@ package com.pt.khanh.movie.screen.movies;
 
 import android.databinding.BaseObservable;
 import android.databinding.ObservableBoolean;
-import android.util.Log;
 
 import com.pt.khanh.movie.data.model.Movie;
 import com.pt.khanh.movie.data.model.MovieResult;
@@ -16,7 +15,7 @@ import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
-public class MoviesViewModel extends BaseObservable {
+public class MoviesViewModel extends BaseObservable implements MoviesAdapter.ItemBookmarkListener {
     public ObservableBoolean mIsLoading = new ObservableBoolean();
     private MovieRepository mRepository;
     private MoviesAdapter mAdapter;
@@ -31,6 +30,8 @@ public class MoviesViewModel extends BaseObservable {
         mIsLoading.set(true);
         mRepository = repository;
         mAdapter = new MoviesAdapter();
+        mAdapter.setListener(this);
+        mIsLoading.set(false);
     }
 
     public void getMoviesByGenre(long id) {
@@ -67,8 +68,7 @@ public class MoviesViewModel extends BaseObservable {
     }
 
     private void handleError(Throwable error) {
-        Log.d("AMEN", "handleError: " + error.getMessage());
-        mIsLoading.set(true);
+//        mIsLoading.set(true);
     }
 
     private void handleResponse(MovieResult response) {
@@ -91,5 +91,15 @@ public class MoviesViewModel extends BaseObservable {
             mIsLoading.set(true);
             getMoviesByCompany(mId);
         } else return;
+    }
+
+    @Override
+    public void onBookmarkClick(Movie movie) {
+        if (mRepository.isFavourite(movie)) {
+            mRepository.deleteMovie(movie);
+        } else {
+            mRepository.insertMovie(movie);
+        }
+        mAdapter.notifyDataSetChanged();
     }
 }

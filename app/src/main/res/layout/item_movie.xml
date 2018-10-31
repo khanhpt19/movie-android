@@ -25,7 +25,7 @@
             <ImageView
                 android:id="@+id/image_movie"
                 android:layout_width="@dimen/dp_100"
-                android:layout_height="@dimen/dp_150"
+                android:layout_height="@dimen/dp_120"
                 android:scaleType="centerCrop"
                 app:imageUrl="@{viewModel.mMovieObservableField.posterPath}" />
 
@@ -38,23 +38,27 @@
                 android:text="@{viewModel.mMovieObservableField.title}"
                 android:textSize="@dimen/sp_20"
                 app:layout_constraintLeft_toRightOf="@id/image_movie"
-                app:layout_constraintRight_toLeftOf="@id/button_favorite" />
+                app:layout_constraintRight_toLeftOf="@id/button_favorite"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/text_release_date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/dp_8"
-                android:layout_marginTop="@dimen/dp_16"
+                android:layout_marginBottom="@dimen/dp_8"
                 android:text="@{viewModel.mMovieObservableField.releaseDate}"
                 android:textSize="@dimen/sp_15"
-                app:layout_constraintLeft_toRightOf="@id/image_movie"
-                app:layout_constraintTop_toBottomOf="@id/text_title" />
+                app:layout_constraintBottom_toTopOf="@id/rating_bar_vote_average"
+                app:layout_constraintLeft_toRightOf="@id/image_movie" />
 
             <RatingBar
                 android:id="@+id/rating_bar_vote_average"
+                style="?android:attr/ratingBarStyleSmall"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/dp_8"
+                android:layout_marginBottom="@dimen/dp_8"
                 android:focusable="false"
                 android:isIndicator="true"
                 android:progressTint="@color/color_primary_dark"
@@ -68,9 +72,10 @@
                 android:layout_height="wrap_content"
                 android:layout_marginRight="@dimen/dp_8"
                 android:background="@null"
-                android:onClick="@{() -> viewModel.onItemFavoriteClick()}"
-                android:src="@drawable/ic_favorite_yes"
-                app:layout_constraintRight_toRightOf="parent" />
+                android:onClick="@{viewModel::onBookmarkClick}"
+                android:src="@{viewModel.isFavourite ? @drawable/ic_favorite_yes : @drawable/ic_favorite_no}"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="@id/text_title" />
         </android.support.constraint.ConstraintLayout>
     </android.support.v7.widget.CardView>
 </layout>

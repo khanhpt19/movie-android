@@ -20,8 +20,8 @@
             android:layout_width="0dp"
             android:layout_height="?attr/actionBarSize"
             android:background="?attr/colorPrimary"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:theme="@style/ThemeOverlay.AppCompat.Dark" />
 
         <android.support.v7.widget.RecyclerView
@@ -34,12 +34,13 @@
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@id/toolbar"
-            app:recyclerAdapter="@{viewModel.adapter}" />
+            app:recyclerAdapter="@{viewModel.adapter}"
+            app:setOnScroll="@{() -> viewModel.onLoadMore()}" />
 
         <ProgressBar
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:visibility="gone"
+            android:visibility="@{viewModel.mIsLoading ? View.VISIBLE : View.GONE}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent" />
