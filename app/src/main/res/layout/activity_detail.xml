@@ -60,7 +60,8 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/dp_4"
                     android:background="@null"
-                    android:src="@drawable/ic_favorite_yes"
+                    android:onClick="@{viewModel::onFavoriteClick}"
+                    android:src="@{viewModel.isFavourite ? @drawable/ic_favorite_yes : @drawable/ic_favorite_no}"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="@id/text_title" />
 

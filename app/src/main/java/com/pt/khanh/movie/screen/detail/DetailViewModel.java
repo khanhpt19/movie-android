@@ -2,7 +2,9 @@ package com.pt.khanh.movie.screen.detail;
 
 import android.app.Activity;
 import android.content.Context;
+import android.databinding.ObservableBoolean;
 import android.databinding.ObservableField;
+import android.view.View;
 
 import com.google.android.youtube.player.YouTubeInitializationResult;
 import com.google.android.youtube.player.YouTubePlayer;
@@ -24,6 +26,7 @@ public class DetailViewModel {
     public ObservableField<YouTubePlayer.OnInitializedListener> initListener = new ObservableField<>();
     public ObservableField<TrailerMovieAdapter> trailerMovieAdapter = new ObservableField<>();
     public ObservableField<Movie> movieDetailObservableField = new ObservableField<>();
+    public ObservableBoolean isFavourite = new ObservableBoolean();
 
     private CompositeDisposable mCompositeDisposable = new CompositeDisposable();
     private GenreDetailAdapter mGenreDetailAdapter;
@@ -32,6 +35,7 @@ public class DetailViewModel {
     private ReviewAdapter mReviewAdapter;
     private MovieRepository mRepository;
     private Context mContext;
+    private Movie mMovie;
 
     public DetailViewModel() {
 
@@ -39,6 +43,7 @@ public class DetailViewModel {
 
     public void start(Context context, MovieRepository repository, Movie movie) {
         mContext = context;
+        mMovie = movie;
         mRepository = repository;
         mGenreDetailAdapter = new GenreDetailAdapter(context);
         mCastAdapter = new CastAdapter();
@@ -47,6 +52,11 @@ public class DetailViewModel {
         loadRecommend(movie.getId());
         loadReview(movie.getId());
         loadVideo(movie);
+        if (mRepository.isFavourite(mMovie)) {
+            isFavourite.set(true);
+        } else {
+            isFavourite.set(false);
+        }
     }
 
     private void loadRecommend(long id) {
@@ -151,6 +161,16 @@ public class DetailViewModel {
 
     public CastAdapter getCastAdapter() {
         return mCastAdapter;
+    }
+
+    public void onFavoriteClick(View view) {
+        if (mRepository.isFavourite(mMovie)) {
+            mRepository.deleteMovie(mMovie);
+            isFavourite.set(false);
+        } else {
+            mRepository.insertMovie(mMovie);
+            isFavourite.set(true);
+        }
     }
 
     public void onStop() {

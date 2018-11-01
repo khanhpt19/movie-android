@@ -42,13 +42,13 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.ItemViewHo
         return mMovies != null ? mMovies.size() : 0;
     }
 
-    public void setMovies(List<Movie> movie) {
+    public void addMovies(List<Movie> movie) {
         if (movie != null)
             mMovies.addAll(movie);
         notifyItemRangeChanged(mMovies.size(), movie.size());
     }
 
-    public void addMovies(List<Movie> movie) {
+    public void setMovies(List<Movie> movie) {
         mMovies.clear();
         if (movie != null)
             mMovies.addAll(movie);
