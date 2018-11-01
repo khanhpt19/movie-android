@@ -75,7 +75,7 @@ public class MoviesViewModel extends BaseObservable implements MoviesAdapter.Ite
         mIsLoading.set(false);
         mMovies = response.getMovies();
         mTotalPage = response.getTotalPage();
-        mAdapter.setMovies(mMovies);
+        mAdapter.addMovies(mMovies);
     }
 
     public MoviesAdapter getAdapter() {

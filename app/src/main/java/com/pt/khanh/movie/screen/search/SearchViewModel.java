@@ -83,7 +83,7 @@ public class SearchViewModel extends BaseObservable implements TextView.OnEditor
             Toast.makeText(mActivity, R.string.toast_movie_not_exist,
                     Toast.LENGTH_SHORT).show();
         } else {
-            mAdapter.addMovies(response.getMovies());
+            mAdapter.setMovies(response.getMovies());
         }
     }
 
