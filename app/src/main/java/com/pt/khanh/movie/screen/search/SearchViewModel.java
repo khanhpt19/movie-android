@@ -14,6 +14,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.pt.khanh.movie.R;
+import com.pt.khanh.movie.data.model.Movie;
 import com.pt.khanh.movie.data.model.MovieResult;
 import com.pt.khanh.movie.data.repository.MovieRepository;
 import com.pt.khanh.movie.screen.movies.MoviesAdapter;
@@ -27,7 +28,8 @@ import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
-public class SearchViewModel extends BaseObservable implements TextView.OnEditorActionListener {
+public class SearchViewModel extends BaseObservable implements TextView.OnEditorActionListener,
+        MoviesAdapter.ItemBookmarkListener {
     public static final int TIME_DELAY = 300;//miliseconds
     public ObservableBoolean mIsLoading = new ObservableBoolean();
     public ObservableField<String> mTextSearch = new ObservableField<>();
@@ -38,6 +40,7 @@ public class SearchViewModel extends BaseObservable implements TextView.OnEditor
 
     public SearchViewModel(AppCompatActivity activity, MovieRepository repository) {
         mAdapter = new MoviesAdapter();
+        mAdapter.setListener(this);
         mActivity = activity;
         mRepository = repository;
     }
@@ -63,7 +66,7 @@ public class SearchViewModel extends BaseObservable implements TextView.OnEditor
     public void searchMovie(String name) {
         mIsLoading.set(true);
         Disposable disposable = mRepository.searchMovie(name, Constants.PAGE_DEFAULT)
-                .debounce(300, TimeUnit.MILLISECONDS)
+                .debounce(TIME_DELAY, TimeUnit.MILLISECONDS)
                 .distinctUntilChanged()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -77,7 +80,6 @@ public class SearchViewModel extends BaseObservable implements TextView.OnEditor
     }
 
     private void handleResponse(MovieResult response) {
-
         mIsLoading.set(false);
         if (response.getMovies().size() == 0) {
             Toast.makeText(mActivity, R.string.toast_movie_not_exist,
@@ -120,4 +122,11 @@ public class SearchViewModel extends BaseObservable implements TextView.OnEditor
         mTextSearch.set("");
     }
 
+    @Override
+    public void onBookmarkClick(Movie movie) {
+        if (mRepository.isFavourite(movie)) {
+            mRepository.deleteMovie(movie);
+        } else
+            mRepository.insertMovie(movie);
+    }
 }
