@@ -43,6 +43,7 @@ public class ItemMovieViewModel extends BaseObservable {
     @BindingAdapter("imageUrl")
     public static void loadImage(ImageView imageView, String url) {
         RequestOptions requestOptions = new RequestOptions()
+                .placeholder(R.drawable.loading)
                 .error(R.drawable.default_movie);
         Glide.with(imageView.getContext())
                 .load(StringUtils.getUrlImage(url))
