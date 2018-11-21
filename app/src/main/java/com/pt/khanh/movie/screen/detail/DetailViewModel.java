@@ -27,6 +27,7 @@ public class DetailViewModel {
     public ObservableField<TrailerMovieAdapter> trailerMovieAdapter = new ObservableField<>();
     public ObservableField<Movie> movieDetailObservableField = new ObservableField<>();
     public ObservableBoolean isFavourite = new ObservableBoolean();
+    public ObservableBoolean mHasReview = new ObservableBoolean();
 
     private CompositeDisposable mCompositeDisposable = new CompositeDisposable();
     private GenreDetailAdapter mGenreDetailAdapter;
@@ -84,17 +85,9 @@ public class DetailViewModel {
                 .subscribe(new Consumer<ReviewResult>() {
                     @Override
                     public void accept(ReviewResult reviewResult) throws Exception {
-//                        List<Review> reviews = new ArrayList<>();
-//                        int n = 3;
-//                        if (reviewResult.getReviews().size() < 3) {
-//                            n = reviewResult.getReviews().size();
-//                        }
-//                        for (int i = 0; i < n; i++) {
-//                            if (reviewResult.getReviews().get(i) != null) {
-//                                reviews.add(reviewResult.getReviews().get(i));
-//                            }
-//                        }
                         mReviewAdapter.setReviews(reviewResult.getReviews());
+                        if(reviewResult.getReviews().size()>0)
+                            mHasReview.set(true);
                     }
                 }, new Consumer<Throwable>() {
                     @Override
