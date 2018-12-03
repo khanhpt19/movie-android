@@ -79,4 +79,10 @@ public final class BindingUtils {
                                  EndLessRecyclerOnScrollListener listener) {
         recyclerView.addOnScrollListener(listener);
     }
+
+    @BindingAdapter("addItemDecoration")
+    public static void addItemDecoration(RecyclerView recyclerView,
+                                         RecyclerView.ItemDecoration itemDecoration) {
+        recyclerView.addItemDecoration(itemDecoration);
+    }
 }

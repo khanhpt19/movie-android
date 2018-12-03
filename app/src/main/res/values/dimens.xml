@@ -22,6 +22,11 @@
     <dimen name="dp_190">190dp</dimen>
     <dimen name="dp_250">250dp</dimen>
     //textsize
+    <dimen name="sp_10">15sp</dimen>
+    <dimen name="sp_11">15sp</dimen>
+    <dimen name="sp_12">15sp</dimen>
+    <dimen name="sp_13">15sp</dimen>
+    <dimen name="sp_14">15sp</dimen>
     <dimen name="sp_15">15sp</dimen>
     <dimen name="sp_20">20sp</dimen>
 </resources>
