@@ -27,7 +27,7 @@
             app:layout_constraintTop_toTopOf="parent"
             app:onInitializedListener="@{viewModel.initListener}" />
 
-        <ScrollView
+        <android.support.v4.widget.NestedScrollView
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginTop="@dimen/dp_2"
@@ -74,16 +74,18 @@
                 <TextView
                     android:id="@+id/text_overview"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="0dp"
                     android:layout_marginLeft="@dimen/dp_8"
                     android:layout_marginTop="@dimen/dp_8"
+                    android:layout_marginRight="@dimen/dp_8"
                     android:ellipsize="end"
-                    android:maxLines="7"
+                    android:maxLines="4"
                     android:text="@{viewModel.movieDetailObservableField.overview}"
                     app:colorClickableText="@color/colorPrimary"
-                    app:layout_constraintEnd_toStartOf="@id/button_favorite"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@id/image_poster"
-                    app:layout_constraintTop_toBottomOf="@id/text_title" />
+                    app:layout_constraintTop_toBottomOf="@id/text_title"
+                    app:layout_constraintBottom_toBottomOf="@id/image_poster"/>
 
                 <TextView
                     android:id="@+id/text_title_genre"
@@ -93,6 +95,7 @@
                     android:layout_marginTop="@dimen/dp_8"
                     android:text="@string/title_genres"
                     android:textColor="@color/color_sea_buckthorn"
+                    android:visibility="@{viewModel.mHasGenres ? View.VISIBLE : View.GONE}"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/image_poster" />
 
@@ -101,6 +104,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/dp_8"
+                    android:nestedScrollingEnabled="false"
                     android:orientation="horizontal"
                     app:layoutManager="android.support.v7.widget.LinearLayoutManager"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -116,6 +120,7 @@
                     android:layout_marginTop="@dimen/dp_8"
                     android:text="@string/title_cast"
                     android:textColor="@color/color_sea_buckthorn"
+                    android:visibility="@{viewModel.mHasCast ? View.VISIBLE : View.GONE}"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/recycler_view_genre" />
 
@@ -124,6 +129,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/dp_8"
+                    android:nestedScrollingEnabled="false"
                     android:orientation="horizontal"
                     app:layoutManager="android.support.v7.widget.LinearLayoutManager"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -139,6 +145,7 @@
                     android:layout_marginTop="@dimen/dp_8"
                     android:text="@string/title_recommend"
                     android:textColor="@color/color_sea_buckthorn"
+                    android:visibility="@{viewModel.mHasRecommend ? View.VISIBLE : View.GONE}"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/recycler_view_cast" />
 
@@ -146,6 +153,7 @@
                     android:id="@+id/recycler_view_recommend"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:nestedScrollingEnabled="false"
                     android:layout_margin="@dimen/dp_8"
                     android:orientation="horizontal"
                     app:layoutManager="android.support.v7.widget.LinearLayoutManager"
@@ -175,10 +183,11 @@
                     android:orientation="vertical"
                     app:layoutManager="android.support.v7.widget.LinearLayoutManager"
                     app:layout_constraintEnd_toEndOf="parent"
+                    app:addItemDecoration="@{viewModel.observableDecoration}"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/text_title_review"
                     app:recyclerAdapter="@{viewModel.reviewAdapter}" />
             </android.support.constraint.ConstraintLayout>
-        </ScrollView>
+        </android.support.v4.widget.NestedScrollView>
     </android.support.constraint.ConstraintLayout>
 </layout>

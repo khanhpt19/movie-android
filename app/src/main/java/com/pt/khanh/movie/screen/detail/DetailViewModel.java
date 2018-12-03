@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.databinding.ObservableBoolean;
 import android.databinding.ObservableField;
+import android.support.v7.widget.DividerItemDecoration;
 import android.view.View;
 
 import com.google.android.youtube.player.YouTubeInitializationResult;
@@ -21,13 +22,16 @@ import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 
 public class DetailViewModel {
-    private static final String TAG = "AMEN";
     public static final int ERROR_CODE = 111;
     public ObservableField<YouTubePlayer.OnInitializedListener> initListener = new ObservableField<>();
     public ObservableField<TrailerMovieAdapter> trailerMovieAdapter = new ObservableField<>();
     public ObservableField<Movie> movieDetailObservableField = new ObservableField<>();
+    public ObservableField<DividerItemDecoration> observableDecoration = new ObservableField<>();
     public ObservableBoolean isFavourite = new ObservableBoolean();
     public ObservableBoolean mHasReview = new ObservableBoolean();
+    public ObservableBoolean mHasRecommend = new ObservableBoolean();
+    public ObservableBoolean mHasCast = new ObservableBoolean();
+    public ObservableBoolean mHasGenres = new ObservableBoolean();
 
     private CompositeDisposable mCompositeDisposable = new CompositeDisposable();
     private GenreDetailAdapter mGenreDetailAdapter;
@@ -46,6 +50,7 @@ public class DetailViewModel {
         mContext = context;
         mMovie = movie;
         mRepository = repository;
+        observableDecoration.set(new DividerItemDecoration(mContext, DividerItemDecoration.VERTICAL));
         mGenreDetailAdapter = new GenreDetailAdapter(context);
         mCastAdapter = new CastAdapter();
         mMovieByAdapter = new MovieByAdapter();
@@ -68,6 +73,8 @@ public class DetailViewModel {
                     @Override
                     public void accept(MovieResult movieResult) throws Exception {
                         mMovieByAdapter.setMovies(movieResult.getMovies());
+                        if (movieResult.getMovies().size() > 0)
+                            mHasRecommend.set(true);
                     }
                 }, new Consumer<Throwable>() {
                     @Override
@@ -86,7 +93,7 @@ public class DetailViewModel {
                     @Override
                     public void accept(ReviewResult reviewResult) throws Exception {
                         mReviewAdapter.setReviews(reviewResult.getReviews());
-                        if(reviewResult.getReviews().size()>0)
+                        if (reviewResult.getReviews().size() > 0)
                             mHasReview.set(true);
                     }
                 }, new Consumer<Throwable>() {
@@ -112,7 +119,11 @@ public class DetailViewModel {
     private void handleResponse(Movie response) {
         movieDetailObservableField.set(response);
         mGenreDetailAdapter.setGenres(response.getGenres());
+        if (response.getGenres().size() > 0)
+            mHasGenres.set(true);
         mCastAdapter.setCasts(response.getCastResult().getCasts());
+        if (response.getCastResult().getCasts().size() > 0)
+            mHasCast.set(true);
         trailerMovieAdapter.set(
                 new TrailerMovieAdapter(
                         response.getTrailerMovieResult().getTrailerMovies()));
