@@ -2,6 +2,7 @@ package com.pt.khanh.movie.screen.genre;
 
 import android.content.Context;
 import android.databinding.BaseObservable;
+import android.databinding.ObservableBoolean;
 import android.databinding.ObservableField;
 
 import com.pt.khanh.movie.data.model.Genre;
@@ -16,6 +17,7 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
 public class GenreViewModel extends BaseObservable {
+    public ObservableBoolean mIsLoading = new ObservableBoolean();
     private static final int SPAN_COUT = 2;
     private static final int SPACING = 20;
     private GenreAdapter mGenreAdapter;
@@ -32,12 +34,13 @@ public class GenreViewModel extends BaseObservable {
 
     private void loadGenres() {
         Disposable disposable = mMoviesRepository.getGenres()
+                .doOnSubscribe(disposable1 -> mIsLoading.set(true))
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
                 .subscribe(genresResult -> {
+                    mIsLoading.set(false);
                     mGenreAdapter.setGenres(getGenres(genresResult));
-                }, throwable -> {
-                });
+                }, throwable -> mIsLoading.set(false));
         mCompositeDisposable.add(disposable);
     }
 
