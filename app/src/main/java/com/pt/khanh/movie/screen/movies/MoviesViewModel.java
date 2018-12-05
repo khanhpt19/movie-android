@@ -16,7 +16,8 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
 public class MoviesViewModel extends BaseObservable implements MoviesAdapter.ItemBookmarkListener {
-    public ObservableBoolean mIsLoading = new ObservableBoolean();
+    public ObservableBoolean mIsLoadingMore = new ObservableBoolean();
+    public ObservableBoolean mIsLoadingProgress = new ObservableBoolean();
     private MovieRepository mRepository;
     private MoviesAdapter mAdapter;
     private CompositeDisposable mCompositeDisposable = new CompositeDisposable();
@@ -27,17 +28,15 @@ public class MoviesViewModel extends BaseObservable implements MoviesAdapter.Ite
     private int mTotalPage = 0;
 
     public MoviesViewModel(MovieRepository repository) {
-        mIsLoading.set(true);
         mRepository = repository;
         mAdapter = new MoviesAdapter();
         mAdapter.setListener(this);
-        mIsLoading.set(false);
     }
 
     public void getMoviesByGenre(long id) {
-        mIsLoading.set(true);
         mId = id;
         Disposable disposable = mRepository.getMoviesByGenre(id, mPage)
+                .doOnSubscribe(disposable1 -> mIsLoadingProgress.set(true))
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(response -> handleResponse(response),
@@ -46,9 +45,9 @@ public class MoviesViewModel extends BaseObservable implements MoviesAdapter.Ite
     }
 
     public void getMoviesByCategory(String type) {
-        mIsLoading.set(true);
         mType = type;
         Disposable disposable = mRepository.getMoviesCategory(type, mPage)
+                .doOnSubscribe(disposable1 -> mIsLoadingProgress.set(true))
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(response -> handleResponse(response),
@@ -57,9 +56,9 @@ public class MoviesViewModel extends BaseObservable implements MoviesAdapter.Ite
     }
 
     public void getMoviesByCompany(long id) {
-        mIsLoading.set(true);
         mId = id;
         Disposable disposable = mRepository.getMoviesByCompany(id, Constants.PAGE_DEFAULT)
+                .doOnSubscribe(disposable1 -> mIsLoadingProgress.set(true))
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(response -> handleResponse(response),
@@ -68,11 +67,13 @@ public class MoviesViewModel extends BaseObservable implements MoviesAdapter.Ite
     }
 
     private void handleError(Throwable error) {
-//        mIsLoading.set(true);
+        mIsLoadingMore.set(false);
+        mIsLoadingProgress.set(false);
     }
 
     private void handleResponse(MovieResult response) {
-        mIsLoading.set(false);
+        mIsLoadingProgress.set(false);
+        mIsLoadingMore.set(false);
         mMovies = response.getMovies();
         mTotalPage = response.getTotalPage();
         mAdapter.addMovies(mMovies);
@@ -83,12 +84,12 @@ public class MoviesViewModel extends BaseObservable implements MoviesAdapter.Ite
     }
 
     public void onLoadMore() {
-        mIsLoading.set(true);
+        mIsLoadingMore.set(true);
         ++mPage;
         getMoviesByCategory(mType);
         getMoviesByGenre(mId);
         if (mPage < mTotalPage) {
-            mIsLoading.set(true);
+            mIsLoadingMore.set(true);
             getMoviesByCompany(mId);
         } else return;
     }

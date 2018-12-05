@@ -76,7 +76,7 @@ public class SearchViewModel extends BaseObservable implements TextView.OnEditor
     }
 
     private void handleError(Throwable error) {
-        mIsLoading.set(true);
+        mIsLoading.set(false);
     }
 
     private void handleResponse(MovieResult response) {

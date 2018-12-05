@@ -42,6 +42,16 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.ItemViewHo
         return mMovies != null ? mMovies.size() : 0;
     }
 
+    @Override
+    public long getItemId(int position) {
+        return position;
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        return position;
+    }
+
     public void addMovies(List<Movie> movie) {
         if (movie != null)
             mMovies.addAll(movie);
