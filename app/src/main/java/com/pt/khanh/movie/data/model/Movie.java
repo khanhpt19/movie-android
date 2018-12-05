@@ -17,7 +17,7 @@ public class Movie implements Parcelable {
     @SerializedName("id")
     @ColumnInfo(name = "id")
     @Expose
-    private long mId;
+    private int mId;
 
     @SerializedName("title")
     @ColumnInfo(name = "title")
@@ -76,7 +76,7 @@ public class Movie implements Parcelable {
     }
 
     protected Movie(Parcel in) {
-        mId = in.readLong();
+        mId = in.readInt();
         mTitle = in.readString();
         mPosterPath = in.readString();
         mBackdropPath = in.readString();
@@ -108,7 +108,7 @@ public class Movie implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeLong(mId);
+        dest.writeInt(mId);
         dest.writeString(mTitle);
         dest.writeString(mPosterPath);
         dest.writeString(mBackdropPath);
@@ -121,11 +121,11 @@ public class Movie implements Parcelable {
         dest.writeTypedList(mCompanies);
     }
 
-    public long getId() {
+    public int getId() {
         return mId;
     }
 
-    public void setId(long id) {
+    public void setId(int id) {
         mId = id;
     }
 

@@ -9,7 +9,7 @@ import com.google.gson.annotations.SerializedName;
 public class Company implements Parcelable {
     @SerializedName("id")
     @Expose
-    private long mId;
+    private int mId;
     @SerializedName("name")
     @Expose
     private String mName;
@@ -24,7 +24,7 @@ public class Company implements Parcelable {
     private String mDescription;
 
     protected Company(Parcel in) {
-        mId = in.readLong();
+        mId = in.readInt();
         mName = in.readString();
         mLogoPath = in.readString();
         mHeadquarters = in.readString();
@@ -43,11 +43,11 @@ public class Company implements Parcelable {
         }
     };
 
-    public long getId() {
+    public int getId() {
         return mId;
     }
 
-    public void setId(long id) {
+    public void setId(int id) {
         mId = id;
     }
 
@@ -90,7 +90,7 @@ public class Company implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeLong(mId);
+        dest.writeInt(mId);
         dest.writeString(mName);
         dest.writeString(mLogoPath);
         dest.writeString(mHeadquarters);

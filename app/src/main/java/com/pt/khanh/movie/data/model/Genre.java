@@ -10,14 +10,18 @@ import com.pt.khanh.movie.R;
 public class Genre implements Parcelable {
     @SerializedName("id")
     @Expose
-    private long mId;
+    private int mId;
     @SerializedName("name")
     @Expose
     private String mName;
     private int mImageResource;
 
+    public Genre(int id) {
+        mId = id;
+    }
+
     protected Genre(Parcel in) {
-        mId = in.readLong();
+        mId = in.readInt();
         mName = in.readString();
     }
 
@@ -33,11 +37,11 @@ public class Genre implements Parcelable {
         }
     };
 
-    public long getId() {
+    public int getId() {
         return mId;
     }
 
-    public void setId(long id) {
+    public void setId(int id) {
         mId = id;
     }
 
@@ -64,7 +68,7 @@ public class Genre implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeLong(mId);
+        dest.writeInt(mId);
         dest.writeString(mName);
     }
 

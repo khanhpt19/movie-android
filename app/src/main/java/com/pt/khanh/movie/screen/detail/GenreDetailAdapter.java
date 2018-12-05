@@ -18,6 +18,7 @@ import java.util.List;
 public class GenreDetailAdapter extends RecyclerView.Adapter<GenreDetailAdapter.ItemViewHolder> {
     private List<Genre> mGenres;
     private Context mContext;
+    private onItemClickListener mOnItemClickListener;
 
     public GenreDetailAdapter(Context context) {
         mContext = context;
@@ -30,7 +31,7 @@ public class GenreDetailAdapter extends RecyclerView.Adapter<GenreDetailAdapter.
         ItemGenreDetailBinding binding = DataBindingUtil.inflate(
                 LayoutInflater.from(parent.getContext()),
                 R.layout.item_genre_detail, parent, false);
-        return new ItemViewHolder(binding);
+        return new ItemViewHolder(binding, mOnItemClickListener);
     }
 
     @Override
@@ -52,10 +53,10 @@ public class GenreDetailAdapter extends RecyclerView.Adapter<GenreDetailAdapter.
         private ItemGenreDetailBinding mBinding;
         private ItemGenreViewModel mItemGenreViewModel;
 
-        public ItemViewHolder(ItemGenreDetailBinding binding) {
+        public ItemViewHolder(ItemGenreDetailBinding binding, onItemClickListener itemClickListener) {
             super(binding.getRoot());
             mBinding = binding;
-            mItemGenreViewModel = new ItemGenreViewModel(mContext);
+//            mItemGenreViewModel = new ItemGenreViewModel(mContext, itemClickListener);
             mBinding.setViewModel(mItemGenreViewModel);
         }
 
@@ -63,6 +64,10 @@ public class GenreDetailAdapter extends RecyclerView.Adapter<GenreDetailAdapter.
             mItemGenreViewModel.setGenres(genre);
             mBinding.executePendingBindings();
         }
+    }
+
+    interface onItemClickListener{
+        void onItemClick(Genre genre);
     }
 }
 

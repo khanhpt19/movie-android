@@ -15,6 +15,8 @@ import com.pt.khanh.movie.data.source.remote.MovieRemoteDataSource;
 import com.pt.khanh.movie.databinding.ActivityMoviesBinding;
 import com.pt.khanh.movie.utils.Constants;
 
+import java.util.List;
+
 public class MoviesActivity extends AppCompatActivity {
     private MoviesViewModel mViewModel;
 
@@ -24,7 +26,7 @@ public class MoviesActivity extends AppCompatActivity {
         MovieRepository repository = MovieRepository.getInstance(
                 MovieRemoteDataSource.getInstance(),
                 MovieLocalDatasource.getInstance(this));
-        mViewModel = new MoviesViewModel(repository);
+        mViewModel = new MoviesViewModel(repository, this);
         ActivityMoviesBinding binding = DataBindingUtil
                 .setContentView(this, R.layout.activity_movies);
         binding.setViewModel(mViewModel);
@@ -41,16 +43,22 @@ public class MoviesActivity extends AppCompatActivity {
             getSupportActionBar().setTitle(category.getName());
             mViewModel.getMoviesByCategory(category.getKey());
         } else if (getIntent().hasExtra(Constants.EXTRA_GENRE)) {
-            Genre genre = (Genre) getIntent().
-                    getParcelableExtra(Constants.EXTRA_GENRE);
-            getSupportActionBar().setTitle(genre.getName());
-            mViewModel.getMoviesByGenre(genre.getId());
+            List<Genre> genres =  getIntent().
+                    getParcelableArrayListExtra(Constants.EXTRA_GENRE);
+            getSupportActionBar().setTitle("Movies");
+            mViewModel.getMoviesByGenre(genres);
         } else if (getIntent().hasExtra(Constants.EXTRA_COMPANY)) {
             Company company = (Company) getIntent()
                     .getParcelableExtra(Constants.EXTRA_COMPANY);
             getSupportActionBar().setTitle(company.getName());
             mViewModel.getMoviesByCompany(company.getId());
         }
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        mViewModel.onStop();
     }
 
     @Override

@@ -5,7 +5,6 @@ import android.arch.lifecycle.AndroidViewModel;
 import android.databinding.BindingAdapter;
 import android.databinding.ObservableField;
 import android.support.annotation.NonNull;
-import android.util.Log;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
@@ -54,7 +53,7 @@ public class CastDetailViewModel extends AndroidViewModel {
                 .into(imageView);
     }
 
-    public void getMoviesByCast(long id) {
+    public void getMoviesByCast(int id) {
         Disposable disposable = mRepository.getMoviesByCast(id, Constants.PAGE_DEFAULT)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -63,7 +62,7 @@ public class CastDetailViewModel extends AndroidViewModel {
         mCompositeDisposable.add(disposable);
     }
 
-    public void getCastDetail(long id) {
+    public void getCastDetail(int id) {
         Disposable disposable = mRepository.getCastDetail(id)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

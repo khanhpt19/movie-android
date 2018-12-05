@@ -32,7 +32,7 @@ public class MovieLocalDatasource implements MovieDatasource.LocalDataSource {
     }
 
     @Override
-    public Movie getMovieLocal(long id) {
+    public Movie getMovieLocal(int id) {
         return mMovieDAO.getMovie(id);
     }
 

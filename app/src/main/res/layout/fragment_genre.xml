@@ -2,6 +2,7 @@
 <layout xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
+        <import type="android.view.View" />
 
         <variable
             name="viewModel"
@@ -22,6 +23,18 @@
             app:layout_constraintTop_toTopOf="parent"
             app:setAdapter="@{viewModel.genreAdapter}"
             app:spanCount="2" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/dp_8"
+            android:background="@color/deep_green_a200"
+            android:text="Go"
+            android:onClick="@{viewModel::onGetMovieByGenresClick}"
+            android:visibility="@{viewModel.mLoadGenre ? View.VISIBLE : View.GONE}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
     </android.support.constraint.ConstraintLayout>
 
 </layout>

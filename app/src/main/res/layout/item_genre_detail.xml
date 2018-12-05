@@ -17,7 +17,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/custom_button_rounded"
-            android:onClick="@{() -> viewModel.onClickItemGenres()}"
+            android:onClick="@{viewModel::onItemClick}"
             android:text="@{viewModel.mGenreObservableField.name}"
             android:padding="@dimen/dp_8"
             app:cornerRadius="@dimen/dp_30" />

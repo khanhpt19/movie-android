@@ -9,7 +9,7 @@ import com.google.gson.annotations.SerializedName;
 public class Cast implements Parcelable {
     @SerializedName("id")
     @Expose
-    private long mId;
+    private int mId;
     @SerializedName("name")
     @Expose
     private String mName;
@@ -36,7 +36,7 @@ public class Cast implements Parcelable {
     private int mGender;
 
     protected Cast(Parcel in) {
-        mId = in.readLong();
+        mId = in.readInt();
         mName = in.readString();
         mCharacter = in.readString();
         mProfilePath = in.readString();
@@ -59,11 +59,11 @@ public class Cast implements Parcelable {
         }
     };
 
-    public long getId() {
+    public int getId() {
         return mId;
     }
 
-    public void setId(long id) {
+    public void setId(int id) {
         mId = id;
     }
 
@@ -138,7 +138,7 @@ public class Cast implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeLong(mId);
+        dest.writeInt(mId);
         dest.writeString(mName);
         dest.writeString(mCharacter);
         dest.writeString(mProfilePath);

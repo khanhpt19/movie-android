@@ -48,22 +48,33 @@ public class MovieRepository implements MovieDatasource.RemoteDataSource, MovieD
     }
 
     @Override
-    public Observable<Movie> getMovie(long id) {
+    public Observable<Movie> getMovie(int id) {
         return mRemoteDataSource.getMovie(id);
     }
 
     @Override
-    public Observable<MovieResult> getMoviesByGenre(long id, int page) {
-        return mRemoteDataSource.getMoviesByGenre(id, page);
+    public Observable<MovieResult> getMoviesByGenre(int page, int id) {
+        return mRemoteDataSource.getMoviesByGenre(page, id);
     }
 
     @Override
-    public Observable<MovieResult> getMoviesByCast(long id, int page) {
+    public Observable<MovieResult> getMoviesByGenres(int page, int... id) {
+        return mRemoteDataSource.getMoviesByGenres(page, id);
+
+    }
+
+    @Override
+    public Observable<MovieResult> getMoviesByListGenre(int page, String id) {
+        return mRemoteDataSource.getMoviesByListGenre(page, id);
+    }
+
+    @Override
+    public Observable<MovieResult> getMoviesByCast(int id, int page) {
         return mRemoteDataSource.getMoviesByCast(id, page);
     }
 
     @Override
-    public Observable<MovieResult> getMoviesByCompany(long id, int page) {
+    public Observable<MovieResult> getMoviesByCompany(int id, int page) {
         return mRemoteDataSource.getMoviesByCompany(id, page);
     }
 
@@ -73,17 +84,17 @@ public class MovieRepository implements MovieDatasource.RemoteDataSource, MovieD
     }
 
     @Override
-    public Observable<Cast> getCastDetail(long id) {
+    public Observable<Cast> getCastDetail(int id) {
         return mRemoteDataSource.getCastDetail(id);
     }
 
     @Override
-    public Observable<MovieResult> getMovieRecommend(long id, int page) {
+    public Observable<MovieResult> getMovieRecommend(int id, int page) {
         return mRemoteDataSource.getMovieRecommend(id, page);
     }
 
     @Override
-    public Observable<ReviewResult> getReview(long id, int page) {
+    public Observable<ReviewResult> getReview(int id, int page) {
         return mRemoteDataSource.getReview(id, page);
     }
 
@@ -93,7 +104,7 @@ public class MovieRepository implements MovieDatasource.RemoteDataSource, MovieD
     }
 
     @Override
-    public Movie getMovieLocal(long id) {
+    public Movie getMovieLocal(int id) {
         return mLocalDatasource.getMovieLocal(id);
     }
 

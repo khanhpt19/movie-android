@@ -18,27 +18,31 @@ public interface MovieDatasource {
 
         Observable<GenresResult> getGenres();
 
-        Observable<Movie> getMovie(long id);
+        Observable<Movie> getMovie(int id);
 
-        Observable<MovieResult> getMoviesByGenre(long id, int page);
+        Observable<MovieResult> getMoviesByGenre(int page, int id);
 
-        Observable<MovieResult> getMoviesByCast(long id, int page);
+        Observable<MovieResult> getMoviesByGenres(int page, int... id);
 
-        Observable<MovieResult> getMoviesByCompany(long id, int page);
+        Observable<MovieResult> getMoviesByListGenre(int page, String id);
+
+        Observable<MovieResult> getMoviesByCast(int id, int page);
+
+        Observable<MovieResult> getMoviesByCompany(int id, int page);
 
         Observable<MovieResult> getMoviesTrend();
 
-        Observable<Cast> getCastDetail(long id);
+        Observable<Cast> getCastDetail(int id);
 
-        Observable<MovieResult> getMovieRecommend(long id, int page);
+        Observable<MovieResult> getMovieRecommend(int id, int page);
 
-        Observable<ReviewResult> getReview(long id, int page);
+        Observable<ReviewResult> getReview(int id, int page);
     }
 
     interface LocalDataSource {
         List<Movie> getMoviesLocal();
 
-        Movie getMovieLocal(long id);
+        Movie getMovieLocal(int id);
 
         boolean insertMovie(Movie movie);
 

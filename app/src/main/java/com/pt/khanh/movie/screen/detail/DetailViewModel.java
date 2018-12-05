@@ -65,7 +65,7 @@ public class DetailViewModel {
         }
     }
 
-    private void loadRecommend(long id) {
+    private void loadRecommend(int id) {
         Disposable disposable = mRepository.getMovieRecommend(id, 1)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -85,7 +85,7 @@ public class DetailViewModel {
         mCompositeDisposable.add(disposable);
     }
 
-    private void loadReview(long id) {
+    private void loadReview(int id) {
         Disposable disposable = mRepository.getReview(id, Constants.PAGE_DEFAULT)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
