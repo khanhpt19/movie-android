@@ -4,6 +4,8 @@
 
     <data>
 
+        <import type="android.view.View" />
+
         <variable
             name="viewModel"
             type="com.pt.khanh.movie.screen.detail.castDetail.CastDetailViewModel" />
@@ -19,7 +21,7 @@
             android:layout_height="?attr/actionBarSize"
             android:background="?attr/colorPrimary"
             app:theme="@style/ThemeOverlay.AppCompat.Dark"
-            app:title="CastDetail" />
+            app:title="@string/title_cast_detail" />
 
         <android.support.v4.widget.NestedScrollView
             android:layout_width="0dp"
@@ -41,8 +43,8 @@
                     android:layout_height="@dimen/dp_100"
                     android:layout_margin="@dimen/dp_16"
                     android:scaleType="centerCrop"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintLeft_toLeftOf="parent" />
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
                     android:id="@+id/text_name"
@@ -116,6 +118,13 @@
 
         </android.support.v4.widget.NestedScrollView>
 
-
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="@{viewModel.mIsLoading ? View.VISIBLE : View.GONE}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
     </android.support.constraint.ConstraintLayout>
 </layout>
