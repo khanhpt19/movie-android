@@ -41,7 +41,7 @@
                     imageUrl="@{viewModel.mCastObservableField.profilePath}"
                     android:layout_width="@dimen/dp_100"
                     android:layout_height="@dimen/dp_100"
-                    android:layout_margin="@dimen/dp_16"
+                    android:layout_margin="@dimen/dp_8"
                     android:scaleType="centerCrop"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -50,11 +50,12 @@
                     android:id="@+id/text_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/dp_16"
+                    android:layout_margin="@dimen/dp_8"
                     android:text="@{viewModel.mCastObservableField.name}"
-                    android:textColor="@color/color_sea_buckthorn"
+                    android:textColor="@color/color_teal_50_700"
                     android:textSize="@dimen/sp_20"
-                    app:layout_constraintLeft_toRightOf="@id/image_cast" />
+                    app:layout_constraintLeft_toRightOf="@id/image_cast"
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
                     android:id="@+id/text_birthday"
@@ -76,10 +77,10 @@
                 <TextView
                     android:id="@+id/title_biography"
                     style="@style/StyleTextTitle"
-                    android:layout_marginLeft="@dimen/dp_16"
+                    android:layout_marginTop="@dimen/dp_8"
                     android:text="@string/text_biography"
-                    android:textColor="@color/color_sea_buckthorn"
-                    app:layout_constraintStart_toStartOf="parent"
+                    android:textColor="@color/color_teal_50_700"
+                    app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/image_cast" />
 
                 <com.borjabravo.readmoretextview.ReadMoreTextView
@@ -100,7 +101,7 @@
                     style="@style/StyleTextTitle"
                     android:layout_marginLeft="@dimen/dp_16"
                     android:text="@string/text_movies"
-                    android:textColor="@color/color_sea_buckthorn"
+                    android:textColor="@color/color_teal_50_700"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/text_biography" />
 
@@ -108,6 +109,8 @@
                     android:id="@+id/recycler_view_movies"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dp_8"
+                    android:layout_marginRight="@dimen/dp_8"
                     android:orientation="horizontal"
                     app:layoutManager="android.support.v7.widget.LinearLayoutManager"
                     app:layout_constraintLeft_toLeftOf="parent"
