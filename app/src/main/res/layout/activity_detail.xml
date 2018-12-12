@@ -41,30 +41,22 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
-                <ImageView
-                    android:id="@+id/image_poster"
-                    android:layout_width="@dimen/dp_100"
-                    android:layout_height="@dimen/dp_150"
-                    android:layout_margin="@dimen/dp_8"
-                    android:scaleType="fitXY"
-                    app:imageUrl="@{viewModel.movieDetailObservableField.posterPath}"
-                    app:layout_constraintStart_toStartOf="parent" />
-
                 <TextView
                     android:id="@+id/text_title"
                     style="@style/StyleTextTitle"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:hint="@string/app_name"
                     android:text="@{viewModel.movieDetailObservableField.title}"
-                    android:textColor="@color/color_sea_buckthorn"
-                    app:layout_constraintLeft_toRightOf="@id/image_poster"
+                    android:textColor="@color/color_teal_50_700"
+                    app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintRight_toLeftOf="@id/button_favorite" />
 
                 <ImageButton
                     android:id="@+id/button_favorite"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/dp_4"
+                    android:layout_marginRight="@dimen/dp_8"
                     android:background="@null"
                     android:onClick="@{viewModel::onFavoriteClick}"
                     android:src="@{viewModel.isFavourite ? @drawable/ic_favorite_yes : @drawable/ic_favorite_no}"
@@ -74,18 +66,18 @@
                 <TextView
                     android:id="@+id/text_overview"
                     android:layout_width="0dp"
-                    android:layout_height="0dp"
+                    android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/dp_8"
                     android:layout_marginTop="@dimen/dp_8"
                     android:layout_marginRight="@dimen/dp_8"
                     android:ellipsize="end"
-                    android:maxLines="4"
+                    android:hint="@string/app_name"
+                    android:maxLines="5"
                     android:text="@{viewModel.movieDetailObservableField.overview}"
                     app:colorClickableText="@color/colorPrimary"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@id/image_poster"
-                    app:layout_constraintTop_toBottomOf="@id/text_title"
-                    app:layout_constraintBottom_toBottomOf="@id/image_poster"/>
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/text_title" />
 
                 <TextView
                     android:id="@+id/text_title_genre"
@@ -94,10 +86,10 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/dp_8"
                     android:text="@string/title_genres"
-                    android:textColor="@color/color_sea_buckthorn"
+                    android:textColor="@color/color_teal_50_700"
                     android:visibility="@{viewModel.mHasGenres ? View.VISIBLE : View.GONE}"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/image_poster" />
+                    app:layout_constraintTop_toBottomOf="@id/text_overview" />
 
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/recycler_view_genre"
@@ -119,7 +111,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/dp_8"
                     android:text="@string/title_cast"
-                    android:textColor="@color/color_sea_buckthorn"
+                    android:textColor="@color/color_teal_50_700"
                     android:visibility="@{viewModel.mHasCast ? View.VISIBLE : View.GONE}"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/recycler_view_genre" />
@@ -144,7 +136,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/dp_8"
                     android:text="@string/title_recommend"
-                    android:textColor="@color/color_sea_buckthorn"
+                    android:textColor="@color/color_teal_50_700"
                     android:visibility="@{viewModel.mHasRecommend ? View.VISIBLE : View.GONE}"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/recycler_view_cast" />
@@ -153,8 +145,8 @@
                     android:id="@+id/recycler_view_recommend"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:nestedScrollingEnabled="false"
                     android:layout_margin="@dimen/dp_8"
+                    android:nestedScrollingEnabled="false"
                     android:orientation="horizontal"
                     app:layoutManager="android.support.v7.widget.LinearLayoutManager"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -169,7 +161,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/dp_8"
                     android:text="@string/title_review"
-                    android:textColor="@color/color_sea_buckthorn"
+                    android:textColor="@color/color_teal_50_700"
                     android:visibility="@{viewModel.mHasReview ? View.VISIBLE : View.GONE}"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/recycler_view_recommend" />
@@ -181,9 +173,9 @@
                     android:layout_margin="@dimen/dp_8"
                     android:nestedScrollingEnabled="false"
                     android:orientation="vertical"
+                    app:addItemDecoration="@{viewModel.observableDecoration}"
                     app:layoutManager="android.support.v7.widget.LinearLayoutManager"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:addItemDecoration="@{viewModel.observableDecoration}"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/text_title_review"
                     app:recyclerAdapter="@{viewModel.reviewAdapter}" />
