@@ -42,7 +42,7 @@
             android:gravity="center"
             android:singleLine="true"
             android:text="@{viewModel.mCastObservableField.character}"
-            android:textSize="@dimen/sp_10"
+            android:textSize="@dimen/sp_12"
             android:textColor="@color/dark_gray"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"

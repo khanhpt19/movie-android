@@ -2,7 +2,7 @@ package com.pt.khanh.movie.utils;
 
 public class Constants {
     public static final String BASE_URL = "https://api.themoviedb.org/3/";
-    public static final String BASE_URL_IMAGE = "https://image.tmdb.org/t/p/w500";
+    public static final String BASE_URL_IMAGE = "https://image.tmdb.org/t/p/w342";
     public static final String MOVIE_PATH = "movie";
     public static final String NOW_PLAYING_PATH = "movie/now_playing";
     public static final String POPULAR_PATH = "movie/popular";
