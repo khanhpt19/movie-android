@@ -9,7 +9,6 @@ import android.databinding.ObservableField;
 import android.os.Parcelable;
 import android.support.annotation.NonNull;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 
@@ -32,8 +31,6 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
 public class HomeViewModel extends AndroidViewModel {
-    private static final String TAG = "AMEN";
-    public static final int MAX_ITEM_TRENDING_MOVIE = 5;
     private ObservableField<TrendingMovieAdapter> trendingMovieAdapter = new ObservableField<>();
     private ObservableField<Movie> moviePopular = new ObservableField<>();
     private ObservableField<Movie> movieNowPlaying = new ObservableField<>();
@@ -87,7 +84,7 @@ public class HomeViewModel extends AndroidViewModel {
     }
 
     private void handleTrendingError(Throwable error) {
-        Log.d("AMEN", "handleTrendingError: " + error.getMessage());
+
     }
 
     private void handleTrendingResponse(MovieResult response) {

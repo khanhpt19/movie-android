@@ -114,6 +114,7 @@ public class DetailViewModel {
     }
 
     private void handleError(Throwable error) {
+        System.out.println(error.getMessage());
     }
 
     private void handleResponse(Movie response) {

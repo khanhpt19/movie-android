@@ -17,12 +17,12 @@
             android:id="@+id/image_backdrop_trend"
             android:layout_width="0dp"
             android:layout_height="@dimen/dp_250"
+            android:onClick="@{() -> viewModel.onClickItemTrending()}"
             android:scaleType="centerCrop"
             app:imageUrl="@{viewModel.mMovieObservableField.backdropPath}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:onClick="@{() -> viewModel.onClickItemTrending()}"/>
+            app:layout_constraintTop_toTopOf="parent" />
 
         <View
             android:layout_width="0dp"
@@ -36,7 +36,7 @@
             imageUrl="@{viewModel.mMovieObservableField.posterPath}"
             android:layout_width="@dimen/dp_100"
             android:layout_height="@dimen/dp_150"
-            android:layout_marginLeft="@dimen/dp_16"
+            android:layout_marginLeft="@dimen/dp_8"
             android:layout_marginBottom="@dimen/dp_8"
             app:layout_constraintBottom_toBottomOf="@id/image_backdrop_trend"
             app:layout_constraintStart_toStartOf="parent" />
@@ -45,43 +45,45 @@
             android:id="@+id/text_title_trend"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/dp_16"
-            android:layout_marginBottom="@dimen/dp_100"
+            android:layout_marginRight="@dimen/dp_8"
+            android:layout_marginBottom="@dimen/dp_16"
             android:text="@{viewModel.mMovieObservableField.title}"
             android:textColor="@android:color/white"
             android:textSize="@dimen/sp_20"
-            app:layout_constraintBottom_toBottomOf="@id/image_backdrop_trend"
-            app:layout_constraintLeft_toRightOf="@id/image_poster_trend" />
+            app:layout_constraintBottom_toTopOf="@id/text_vote_average"
+            app:layout_constraintLeft_toLeftOf="@id/text_release_date"
+            app:layout_constraintRight_toRightOf="parent" />
 
         <TextView
             android:id="@+id/text_vote_average"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/dp_4"
             android:text="@{String.valueOf(viewModel.mMovieObservableField.voteAverage)}"
             android:textColor="@android:color/white"
             android:textSize="@dimen/sp_15"
-            app:layout_constraintBottom_toBottomOf="@id/image_star"
-            app:layout_constraintLeft_toLeftOf="@id/text_title_trend"
+            app:layout_constraintBottom_toTopOf="@id/text_release_date"
+            app:layout_constraintLeft_toLeftOf="@id/text_release_date"
             app:layout_constraintRight_toLeftOf="@id/image_star" />
 
         <ImageView
             android:id="@+id/image_star"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/dp_8"
+            android:layout_marginLeft="@dimen/dp_4"
             android:src="@drawable/ic_star"
-            app:layout_constraintBottom_toTopOf="@id/text_release_date"
+            app:layout_constraintBottom_toBottomOf="@id/text_vote_average"
             app:layout_constraintLeft_toRightOf="@id/text_vote_average" />
 
         <TextView
             android:id="@+id/text_release_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/dp_16"
+            android:layout_marginLeft="@dimen/dp_8"
             android:text="@{viewModel.mMovieObservableField.releaseDate}"
             android:textColor="@android:color/white"
             android:textSize="@dimen/sp_15"
-            app:layout_constraintBottom_toBottomOf="@id/image_backdrop_trend"
-            app:layout_constraintLeft_toLeftOf="@id/text_title_trend" />
+            app:layout_constraintBottom_toBottomOf="@id/image_poster_trend"
+            app:layout_constraintStart_toEndOf="@id/image_poster_trend" />
     </android.support.constraint.ConstraintLayout>
 </layout>
