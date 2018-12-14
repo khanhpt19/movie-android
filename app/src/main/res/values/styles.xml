@@ -13,18 +13,6 @@
         <item name="windowNoTitle">true</item>
     </style>
 
-    <style name="StyleImageCategory">
-        <item name="android:layout_height">@dimen/dp_120</item>
-        <item name="android:layout_width">@dimen/dp_185</item>
-        <item name="android:scaleType">fitXY</item>
-    </style>
-
-    <style name="StyleViewCategory">
-        <item name="android:layout_height">@dimen/dp_30</item>
-        <item name="android:layout_width">@dimen/dp_180</item>
-        <item name="android:background">@color/color_transparent_category</item>
-    </style>
-
     <style name="StyleTextCategory">
         <item name="android:layout_height">@dimen/dp_30</item>
         <item name="android:layout_width">@dimen/dp_180</item>

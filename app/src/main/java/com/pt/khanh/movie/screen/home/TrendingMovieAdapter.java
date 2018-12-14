@@ -15,6 +15,7 @@ import com.pt.khanh.movie.screen.movies.MoviesAdapter;
 import java.util.List;
 
 public class TrendingMovieAdapter extends PagerAdapter {
+    private static final int MAX_ITEM_TRENDING_MOVIE = 5;
     private List<Movie> mMovies;
     private ItemMovieViewModel mItemMovieViewModel;
     private MoviesAdapter.ItemBookmarkListener mListener;
@@ -38,7 +39,7 @@ public class TrendingMovieAdapter extends PagerAdapter {
 
     @Override
     public int getCount() {
-        return mMovies != null ? HomeViewModel.MAX_ITEM_TRENDING_MOVIE : 0;
+        return mMovies != null ? MAX_ITEM_TRENDING_MOVIE : 0;
     }
 
     @Override
