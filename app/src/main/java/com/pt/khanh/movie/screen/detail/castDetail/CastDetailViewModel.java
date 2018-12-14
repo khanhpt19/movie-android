@@ -21,10 +21,13 @@ import com.pt.khanh.movie.utils.StringUtils;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 
 public class CastDetailViewModel extends AndroidViewModel {
     public ObservableBoolean mIsLoading = new ObservableBoolean();
+    public ObservableBoolean mHasBiography = new ObservableBoolean();
+    public ObservableBoolean mHasMovies = new ObservableBoolean();
     public ObservableField<Cast> mCastObservableField = new ObservableField<>();
     private MovieRepository mRepository;
     private MovieByAdapter mAdapter;
@@ -39,7 +42,6 @@ public class CastDetailViewModel extends AndroidViewModel {
         mAdapter = new MovieByAdapter();
         getCastDetail(cast.getId());
         getMoviesByCast(cast.getId());
-
     }
 
     @BindingAdapter("imageUrl")
@@ -51,6 +53,7 @@ public class CastDetailViewModel extends AndroidViewModel {
         Glide.with(imageView.getContext())
                 .load(StringUtils.getUrlImage(url))
                 .apply(requestOptions)
+                .thumbnail(0.1f)
                 .into(imageView);
     }
 
@@ -59,8 +62,22 @@ public class CastDetailViewModel extends AndroidViewModel {
                 .doOnSubscribe(disposable1 -> mIsLoading.set(true))
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(response -> handleResponse(response),
-                        error -> handleError(error));
+                .subscribe(new Consumer<MovieResult>() {
+                               @Override
+                               public void accept(MovieResult movieResult) throws Exception {
+                                   mIsLoading.set(false);
+                                   mAdapter.setMovies(movieResult.getMovies());
+                                   if (movieResult.getMovies() != null)
+                                       mHasMovies.set(true);
+                               }
+                           },
+                        new Consumer<Throwable>() {
+                            @Override
+                            public void accept(Throwable throwable) throws Exception {
+                                mIsLoading.set(false);
+                                System.out.println(throwable.getMessage());
+                            }
+                        });
         mCompositeDisposable.add(disposable);
     }
 
@@ -69,24 +86,26 @@ public class CastDetailViewModel extends AndroidViewModel {
                 .doOnSubscribe(disposable1 -> mIsLoading.set(true))
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(cast -> {
-                    mIsLoading.set(false);
-                    mCastObservableField.set(cast);
-                }, throwable -> mIsLoading.set(false));
+                .subscribe(new Consumer<Cast>() {
+                    @Override
+                    public void accept(Cast cast) throws Exception {
+                        mIsLoading.set(false);
+                        mCastObservableField.set(cast);
+                        if (!cast.getBiography().isEmpty())
+                            mHasBiography.set(true);
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+                        mIsLoading.set(false);
+                        System.out.println(throwable.getMessage());
+                    }
+                });
         mCompositeDisposable.add(disposable);
     }
 
     public ObservableField<Cast> getCastObservableField() {
         return mCastObservableField;
-    }
-
-    private void handleError(Throwable error) {
-        mIsLoading.set(false);
-    }
-
-    private void handleResponse(MovieResult response) {
-        mIsLoading.set(false);
-        mAdapter.setMovies(response.getMovies());
     }
 
     public MovieByAdapter getAdapter() {

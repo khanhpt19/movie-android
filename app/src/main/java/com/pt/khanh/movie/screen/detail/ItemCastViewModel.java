@@ -33,6 +33,7 @@ public class ItemCastViewModel extends BaseObservable {
         Glide.with(imageView.getContext())
                 .load(StringUtils.getUrlImage(url))
                 .apply(requestOptions)
+                .thumbnail(0.1f)
                 .into(imageView);
     }
 
