@@ -46,7 +46,6 @@
                     style="@style/StyleTextTitle"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:hint="@string/app_name"
                     android:text="@{viewModel.movieDetailObservableField.title}"
                     android:textColor="@color/color_teal_50_700"
                     app:layout_constraintLeft_toLeftOf="parent"
@@ -71,7 +70,6 @@
                     android:layout_marginTop="@dimen/dp_8"
                     android:layout_marginRight="@dimen/dp_8"
                     android:ellipsize="end"
-                    android:hint="@string/app_name"
                     android:maxLines="5"
                     android:text="@{viewModel.movieDetailObservableField.overview}"
                     app:colorClickableText="@color/colorPrimary"
@@ -130,6 +128,32 @@
                     app:recyclerAdapter="@{viewModel.castAdapter}" />
 
                 <TextView
+                    android:id="@+id/text_title_company"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dp_8"
+                    android:layout_marginTop="@dimen/dp_8"
+                    android:text="@string/title_company"
+                    android:textColor="@color/color_teal_50_700"
+                    android:textSize="@dimen/sp_20"
+                    android:visibility="@{viewModel.mHasCompany ? View.VISIBLE : View.GONE}"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/recycler_view_cast" />
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/recycler_view_company"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/dp_8"
+                    android:nestedScrollingEnabled="false"
+                    android:orientation="horizontal"
+                    app:layoutManager="android.support.v7.widget.LinearLayoutManager"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/text_title_company"
+                    app:recyclerAdapter="@{viewModel.companyAdapter}" />
+
+                <TextView
                     android:id="@+id/text_title_recommend"
                     style="@style/StyleTextTitle"
                     android:layout_width="wrap_content"
@@ -139,7 +163,7 @@
                     android:textColor="@color/color_teal_50_700"
                     android:visibility="@{viewModel.mHasRecommend ? View.VISIBLE : View.GONE}"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/recycler_view_cast" />
+                    app:layout_constraintTop_toBottomOf="@id/recycler_view_company" />
 
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/recycler_view_recommend"
