@@ -9,6 +9,7 @@ import android.view.View;
 
 import com.google.android.youtube.player.YouTubeInitializationResult;
 import com.google.android.youtube.player.YouTubePlayer;
+import com.pt.khanh.movie.data.model.Company;
 import com.pt.khanh.movie.data.model.Movie;
 import com.pt.khanh.movie.data.model.MovieResult;
 import com.pt.khanh.movie.data.model.ReviewResult;
@@ -21,7 +22,7 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 
-public class DetailViewModel {
+public class DetailViewModel implements CompanyAdapter.ItemClickListener {
     public static final int ERROR_CODE = 111;
     public ObservableField<YouTubePlayer.OnInitializedListener> initListener = new ObservableField<>();
     public ObservableField<TrailerMovieAdapter> trailerMovieAdapter = new ObservableField<>();
@@ -32,12 +33,14 @@ public class DetailViewModel {
     public ObservableBoolean mHasRecommend = new ObservableBoolean();
     public ObservableBoolean mHasCast = new ObservableBoolean();
     public ObservableBoolean mHasGenres = new ObservableBoolean();
+    public ObservableBoolean mHasCompany = new ObservableBoolean();
 
     private CompositeDisposable mCompositeDisposable = new CompositeDisposable();
     private GenreDetailAdapter mGenreDetailAdapter;
     private CastAdapter mCastAdapter;
     private MovieByAdapter mMovieByAdapter;
     private ReviewAdapter mReviewAdapter;
+    private CompanyAdapter mCompanyAdapter;
     private MovieRepository mRepository;
     private Context mContext;
     private Movie mMovie;
@@ -53,6 +56,8 @@ public class DetailViewModel {
         observableDecoration.set(new DividerItemDecoration(mContext, DividerItemDecoration.VERTICAL));
         mGenreDetailAdapter = new GenreDetailAdapter(context);
         mCastAdapter = new CastAdapter();
+        mCompanyAdapter = new CompanyAdapter();
+        mCompanyAdapter.setItemClickListener(this);
         mMovieByAdapter = new MovieByAdapter();
         mReviewAdapter = new ReviewAdapter();
         loadRecommend(movie.getId());
@@ -64,6 +69,7 @@ public class DetailViewModel {
             isFavourite.set(false);
         }
     }
+
 
     private void loadRecommend(long id) {
         Disposable disposable = mRepository.getMovieRecommend(id, 1)
@@ -123,6 +129,10 @@ public class DetailViewModel {
         if (response.getGenres().size() > 0)
             mHasGenres.set(true);
         mCastAdapter.setCasts(response.getCastResult().getCasts());
+        mCompanyAdapter.setCompanies(response.getCompanies());
+        if (response.getCompanies().size() > 0) {
+            mHasCompany.set(true);
+        }
         if (response.getCastResult().getCasts().size() > 0)
             mHasCast.set(true);
         trailerMovieAdapter.set(
@@ -168,6 +178,10 @@ public class DetailViewModel {
         return mCastAdapter;
     }
 
+    public CompanyAdapter getCompanyAdapter() {
+        return mCompanyAdapter;
+    }
+
     public void onFavoriteClick(View view) {
         if (mRepository.isFavourite(mMovie)) {
             mRepository.deleteMovie(mMovie);
@@ -180,5 +194,10 @@ public class DetailViewModel {
 
     public void onStop() {
         mCompositeDisposable.clear();
+    }
+
+    @Override
+    public void onItemClick(Company company) {
+
     }
 }

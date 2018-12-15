@@ -13,6 +13,7 @@
     <string name="category_upcoming">Upcoming</string>
     <string name="text_genres">Genres</string>
     <string name="title_cast">Cast</string>
+    <string name="title_company">Company</string>
     <string name="text_movies">List movie of cast</string>
     <string name="text_biography">Biography</string>
     <string name="text_release_date">Release Date</string>
