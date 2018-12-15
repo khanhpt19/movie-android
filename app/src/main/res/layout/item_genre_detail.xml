@@ -16,7 +16,7 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/custom_button_rounded"
+            android:background="@drawable/bg_genre_detail"
             android:onClick="@{() -> viewModel.onClickItemGenres()}"
             android:text="@{viewModel.mGenreObservableField.name}"
             android:padding="@dimen/dp_8"
