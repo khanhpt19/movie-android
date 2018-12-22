@@ -51,6 +51,7 @@ public class DetailViewModel implements CompanyAdapter.ItemClickListener {
 
     public void start(Context context, MovieRepository repository, Movie movie) {
         mContext = context;
+        movieDetailObservableField.set(movie);
         mMovie = movie;
         mRepository = repository;
         observableDecoration.set(new DividerItemDecoration(mContext, DividerItemDecoration.VERTICAL));

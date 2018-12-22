@@ -23,7 +23,7 @@ public class FavoriteViewModel extends AndroidViewModel implements MoviesAdapter
         mRepository = repository;
         mAdapter = new MoviesAdapter();
         mMovies = mRepository.getMoviesLocal();
-        mAdapter.setMovies(mMovies);
+        mAdapter.setMovies(movies);
         mAdapter.setListener(this);
     }
 

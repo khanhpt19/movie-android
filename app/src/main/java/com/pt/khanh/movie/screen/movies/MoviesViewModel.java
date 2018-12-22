@@ -16,7 +16,7 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
 public class MoviesViewModel extends BaseObservable implements MoviesAdapter.ItemBookmarkListener {
-//    public ObservableBoolean mIsLoadingMore = new ObservableBoolean();
+    public ObservableBoolean mIsLoadingMore = new ObservableBoolean();
     public ObservableBoolean mIsLoadingProgress = new ObservableBoolean();
     private MovieRepository mRepository;
     private MoviesAdapter mAdapter;
