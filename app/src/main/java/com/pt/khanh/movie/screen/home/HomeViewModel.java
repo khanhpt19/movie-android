@@ -11,6 +11,7 @@ import android.support.annotation.NonNull;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
@@ -84,7 +85,12 @@ public class HomeViewModel extends AndroidViewModel {
     }
 
     private void handleTrendingError(Throwable error) {
-
+        if (error.getMessage().equals(getApplication().getString(R.string.error_no_internet)))
+            Toast.makeText(getApplication(),
+                    getApplication().getString(R.string.toast_no_internet), Toast.LENGTH_SHORT).show();
+        else
+            Toast.makeText(getApplication(),
+                    getApplication().getString(R.string.toast_error_api), Toast.LENGTH_SHORT).show();
     }
 
     private void handleTrendingResponse(MovieResult response) {
@@ -116,7 +122,7 @@ public class HomeViewModel extends AndroidViewModel {
                 getApplication().getString(R.string.key_now_playing), 1)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(movieResult -> movieNowPlaying.set(movieResult.getMovies().get(1)),
+                .subscribe(movieResult -> movieNowPlaying.set(movieResult.getMovies().get(10)),
                         throwable -> {
                         });
         mCompositeDisposable.add(disposable);
@@ -170,7 +176,7 @@ public class HomeViewModel extends AndroidViewModel {
 
 
     @BindingAdapter("imageUrl")
-    public static void loadImage(ImageView imageView, String url) {
+    public static void imageUrl(ImageView imageView, String url) {
         RequestOptions requestOptions = new RequestOptions()
                 .error(R.drawable.ic_launcher_foreground);
         Glide.with(imageView.getContext())

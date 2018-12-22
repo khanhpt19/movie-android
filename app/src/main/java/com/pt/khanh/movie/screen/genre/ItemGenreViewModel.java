@@ -24,7 +24,6 @@ public class ItemGenreViewModel extends BaseObservable {
     }
 
     public void onClickItemGenres() {
-        Log.d("AMEN", "onClickItemGenres: "  + mGenreObservableField.get().getName());
         mContext.startActivity(getMovieIntent(mContext, mGenreObservableField.get()));
     }
 

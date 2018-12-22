@@ -27,7 +27,7 @@
                 android:layout_width="@dimen/dp_100"
                 android:layout_height="@dimen/dp_120"
                 android:scaleType="centerCrop"
-                app:imageUrl="@{viewModel.mMovieObservableField.posterPath}" />
+                imageUrlMovie="@{viewModel.mMovieObservableField.posterPath}" />
 
             <TextView
                 android:id="@+id/text_title"

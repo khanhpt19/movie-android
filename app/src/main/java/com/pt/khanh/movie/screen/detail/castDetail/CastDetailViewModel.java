@@ -7,6 +7,7 @@ import android.databinding.ObservableBoolean;
 import android.databinding.ObservableField;
 import android.support.annotation.NonNull;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
@@ -39,12 +40,13 @@ public class CastDetailViewModel extends AndroidViewModel {
 
     public void setupViewModel(Cast cast, MovieRepository repository) {
         mRepository = repository;
+        mCastObservableField.set(cast);
         mAdapter = new MovieByAdapter();
         getCastDetail(cast.getId());
         getMoviesByCast(cast.getId());
     }
 
-    @BindingAdapter("imageUrl")
+    @BindingAdapter("imageUrlCast")
     public static void imageUrlCast(ImageView imageView, String url) {
         RequestOptions requestOptions = new RequestOptions()
                 .placeholder(R.drawable.loading)
@@ -63,22 +65,25 @@ public class CastDetailViewModel extends AndroidViewModel {
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Consumer<MovieResult>() {
-                               @Override
-                               public void accept(MovieResult movieResult) throws Exception {
-                                   mIsLoading.set(false);
-                                   mAdapter.setMovies(movieResult.getMovies());
-                                   if (movieResult.getMovies() != null)
-                                       mHasMovies.set(true);
-                               }
-                           },
-                        new Consumer<Throwable>() {
-                            @Override
-                            public void accept(Throwable throwable) throws Exception {
-                                mIsLoading.set(false);
-                                System.out.println(throwable.getMessage());
-                            }
-                        });
+                    @Override
+                    public void accept(MovieResult movieResult) throws Exception {
+                        mIsLoading.set(false);
+                        mAdapter.setMovies(movieResult.getMovies());
+                        if (movieResult.getMovies() != null)
+                            mHasMovies.set(true);
+                    }
+                }, error -> handleError(error));
         mCompositeDisposable.add(disposable);
+    }
+
+    private void handleError(Throwable error) {
+        mIsLoading.set(false);
+        if (error.getMessage().equals(getApplication().getString(R.string.error_no_internet)))
+            Toast.makeText(getApplication(),
+                    getApplication().getString(R.string.toast_no_internet), Toast.LENGTH_SHORT).show();
+        else
+            Toast.makeText(getApplication(),
+                    getApplication().getString(R.string.toast_error_api), Toast.LENGTH_SHORT).show();
     }
 
     public void getCastDetail(long id) {
@@ -94,13 +99,7 @@ public class CastDetailViewModel extends AndroidViewModel {
                         if (!cast.getBiography().isEmpty())
                             mHasBiography.set(true);
                     }
-                }, new Consumer<Throwable>() {
-                    @Override
-                    public void accept(Throwable throwable) throws Exception {
-                        mIsLoading.set(false);
-                        System.out.println(throwable.getMessage());
-                    }
-                });
+                }, error -> handleError(error));
         mCompositeDisposable.add(disposable);
     }
 
