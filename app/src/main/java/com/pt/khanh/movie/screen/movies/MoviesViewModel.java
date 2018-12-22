@@ -1,8 +1,12 @@
 package com.pt.khanh.movie.screen.movies;
 
-import android.databinding.BaseObservable;
+import android.app.Application;
+import android.arch.lifecycle.AndroidViewModel;
 import android.databinding.ObservableBoolean;
+import android.support.annotation.NonNull;
+import android.widget.Toast;
 
+import com.pt.khanh.movie.R;
 import com.pt.khanh.movie.data.model.Movie;
 import com.pt.khanh.movie.data.model.MovieResult;
 import com.pt.khanh.movie.data.repository.MovieRepository;
@@ -15,7 +19,7 @@ import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
-public class MoviesViewModel extends BaseObservable implements MoviesAdapter.ItemBookmarkListener {
+public class MoviesViewModel extends AndroidViewModel implements MoviesAdapter.ItemBookmarkListener {
     public ObservableBoolean mIsLoadingMore = new ObservableBoolean();
     public ObservableBoolean mIsLoadingProgress = new ObservableBoolean();
     private MovieRepository mRepository;
@@ -27,11 +31,16 @@ public class MoviesViewModel extends BaseObservable implements MoviesAdapter.Ite
     private String mType;
     private int mTotalPage = 0;
 
-    public MoviesViewModel(MovieRepository repository) {
+    public MoviesViewModel(@NonNull Application application) {
+        super(application);
+    }
+
+    public void setupViewModel(MovieRepository repository) {
         mRepository = repository;
         mAdapter = new MoviesAdapter();
         mAdapter.setListener(this);
     }
+
 
     public void getMoviesByGenre(long id) {
         mId = id;
@@ -68,6 +77,12 @@ public class MoviesViewModel extends BaseObservable implements MoviesAdapter.Ite
 
     private void handleError(Throwable error) {
         mIsLoadingProgress.set(false);
+        if (error.getMessage().equals(getApplication().getString(R.string.error_no_internet)))
+            Toast.makeText(getApplication(),
+                    getApplication().getString(R.string.toast_no_internet), Toast.LENGTH_SHORT).show();
+        else
+            Toast.makeText(getApplication(),
+                    getApplication().getString(R.string.toast_error_api), Toast.LENGTH_SHORT).show();
     }
 
     private void handleResponse(MovieResult response) {

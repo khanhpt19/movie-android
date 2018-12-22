@@ -6,9 +6,11 @@ import android.databinding.ObservableBoolean;
 import android.databinding.ObservableField;
 import android.support.v7.widget.DividerItemDecoration;
 import android.view.View;
+import android.widget.Toast;
 
 import com.google.android.youtube.player.YouTubeInitializationResult;
 import com.google.android.youtube.player.YouTubePlayer;
+import com.pt.khanh.movie.R;
 import com.pt.khanh.movie.data.model.Company;
 import com.pt.khanh.movie.data.model.Movie;
 import com.pt.khanh.movie.data.model.MovieResult;
@@ -35,6 +37,7 @@ public class DetailViewModel implements CompanyAdapter.ItemClickListener {
     public ObservableBoolean mHasGenres = new ObservableBoolean();
     public ObservableBoolean mHasCompany = new ObservableBoolean();
 
+    private YouTubePlayer mYouTubePlayer;
     private CompositeDisposable mCompositeDisposable = new CompositeDisposable();
     private GenreDetailAdapter mGenreDetailAdapter;
     private CastAdapter mCastAdapter;
@@ -83,12 +86,7 @@ public class DetailViewModel implements CompanyAdapter.ItemClickListener {
                         if (movieResult.getMovies().size() > 0)
                             mHasRecommend.set(true);
                     }
-                }, new Consumer<Throwable>() {
-                    @Override
-                    public void accept(Throwable throwable) throws Exception {
-
-                    }
-                });
+                }, error -> handleError(error));
         mCompositeDisposable.add(disposable);
     }
 
@@ -103,12 +101,7 @@ public class DetailViewModel implements CompanyAdapter.ItemClickListener {
                         if (reviewResult.getReviews().size() > 0)
                             mHasReview.set(true);
                     }
-                }, new Consumer<Throwable>() {
-                    @Override
-                    public void accept(Throwable throwable) throws Exception {
-
-                    }
-                });
+                }, error -> handleError(error));
         mCompositeDisposable.add(disposable);
     }
 
@@ -121,7 +114,12 @@ public class DetailViewModel implements CompanyAdapter.ItemClickListener {
     }
 
     private void handleError(Throwable error) {
-        System.out.println(error.getMessage());
+        if (error.getMessage().equals(mContext.getString(R.string.error_no_internet)))
+            Toast.makeText(mContext,
+                    mContext.getString(R.string.toast_no_internet), Toast.LENGTH_SHORT).show();
+        else
+            Toast.makeText(mContext,
+                    mContext.getString(R.string.toast_error_api), Toast.LENGTH_SHORT).show();
     }
 
     private void handleResponse(Movie response) {
@@ -143,18 +141,23 @@ public class DetailViewModel implements CompanyAdapter.ItemClickListener {
         initListener.set(new YouTubePlayer.OnInitializedListener() {
             @Override
             public void onInitializationSuccess(YouTubePlayer.Provider provider,
-                                                YouTubePlayer youTubePlayer, boolean b) {
-                if (!b) {
+                                                YouTubePlayer youTubePlayer, boolean wasRestored) {
+                mYouTubePlayer = youTubePlayer;
+                if (!wasRestored) {
                     if (response.getTrailerMovieResult().getTrailerMovies().size() != 0)
-                        youTubePlayer.cueVideo(
+                        mYouTubePlayer.cueVideo(
                                 response.getTrailerMovieResult().getTrailerMovies().get(0).getKey());
                 }
             }
 
             @Override
             public void onInitializationFailure(YouTubePlayer.Provider provider,
-                                                YouTubeInitializationResult youTubeInitializationResult) {
-                youTubeInitializationResult.getErrorDialog((Activity) mContext, ERROR_CODE);
+                                                YouTubeInitializationResult errorReason) {
+                if (errorReason.isUserRecoverableError()) {
+                    errorReason.getErrorDialog((Activity) mContext, ERROR_CODE).show();
+                } else {
+                    Toast.makeText(mContext, errorReason.toString(), Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }
@@ -195,6 +198,10 @@ public class DetailViewModel implements CompanyAdapter.ItemClickListener {
 
     public void onStop() {
         mCompositeDisposable.clear();
+        if (mYouTubePlayer != null) {
+            mYouTubePlayer.release();
+            mYouTubePlayer = null;
+        }
     }
 
     @Override

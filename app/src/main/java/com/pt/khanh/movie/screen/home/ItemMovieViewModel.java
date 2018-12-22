@@ -10,7 +10,6 @@ import android.view.View;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.RequestBuilder;
 import com.bumptech.glide.request.RequestOptions;
 import com.pt.khanh.movie.R;
 import com.pt.khanh.movie.data.model.Movie;
@@ -41,16 +40,16 @@ public class ItemMovieViewModel extends BaseObservable {
         mMovieObservableField.set(movie);
     }
 
-    @BindingAdapter("imageUrl")
-    public static void loadImage(ImageView imageView, String url) {
+    @BindingAdapter("imageUrlMovie")
+    public static void imageUrlMovie(ImageView imageView, String url) {
         RequestOptions requestOptions = new RequestOptions()
                 .placeholder(R.drawable.loading)
                 .error(R.drawable.default_movie);
 
         Glide.with(imageView.getContext())
+                .applyDefaultRequestOptions(requestOptions)
                 .load(StringUtils.getUrlImage(url))
                 .thumbnail(0.1f)
-                .apply(requestOptions)
                 .into(imageView);
     }
 

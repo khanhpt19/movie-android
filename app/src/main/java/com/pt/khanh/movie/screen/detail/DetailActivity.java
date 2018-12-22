@@ -29,6 +29,18 @@ public class DetailActivity extends YouTubeBaseActivity {
     }
 
     @Override
+    protected void onPause() {
+        super.onPause();
+        mViewModel.onStop();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        mViewModel.onStop();
+    }
+
+    @Override
     protected void onDestroy() {
         super.onDestroy();
         mViewModel.onStop();

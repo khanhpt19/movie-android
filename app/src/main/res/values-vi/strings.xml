@@ -35,4 +35,8 @@
     <string name="title_recommend">Đề xuất</string>
     <string name="title_review">Nhận xét</string>
     <string name="title_cast_detail">Chi tiết diễn viên</string>
+    <string name="toast_no_internet">Không có kết nối mạng</string>
+    <string name="toast_error_api">Chúng tôi xin lỗi vì sự bất tiện này. Vui lòng thử lại sau!</string>
+    <string name="error_no_internet">Unable to resolve host \"api.themoviedb.org\": No address associated with hostname</string>
+    <string name="text_vote_average">Điểm bình chọn</string>
 </resources>

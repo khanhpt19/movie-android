@@ -5,6 +5,8 @@
 
         <import type="android.view.View" />
 
+        <import type="java.lang.String" />
+
         <variable
             name="viewModel"
             type="com.pt.khanh.movie.screen.detail.DetailViewModel" />
@@ -206,6 +208,44 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/text_title_review"
                     app:recyclerAdapter="@{viewModel.reviewAdapter}" />
+
+                <TextView
+                    android:id="@+id/title_release_date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dp_8"
+                    android:layout_marginTop="@dimen/dp_8"
+                    android:text="@string/text_release_date"
+                    android:textColor="@color/color_teal_50_700"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/recycler_view_review" />
+
+                <TextView
+                    android:id="@+id/text_release_date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{viewModel.movieDetailObservableField.releaseDate}"
+                    app:layout_constraintLeft_toLeftOf="@id/title_release_date"
+                    app:layout_constraintTop_toBottomOf="@id/title_release_date" />
+
+                <TextView
+                    android:id="@+id/title_vote_average"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dp_8"
+                    android:layout_marginTop="@dimen/dp_8"
+                    android:text="@string/text_vote_average"
+                    android:textColor="@color/color_teal_50_700"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/text_release_date" />
+
+                <TextView
+                    android:id="@+id/text_vote_average"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintLeft_toLeftOf="@id/title_vote_average"
+                    android:text="@{String.valueOf(viewModel.movieDetailObservableField.voteAverage)}"
+                    app:layout_constraintTop_toBottomOf="@id/title_vote_average" />
             </android.support.constraint.ConstraintLayout>
         </android.support.v4.widget.NestedScrollView>
     </android.support.constraint.ConstraintLayout>

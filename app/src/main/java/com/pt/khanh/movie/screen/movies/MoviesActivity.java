@@ -1,5 +1,6 @@
 package com.pt.khanh.movie.screen.movies;
 
+import android.arch.lifecycle.ViewModelProviders;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -24,7 +25,8 @@ public class MoviesActivity extends AppCompatActivity {
         MovieRepository repository = MovieRepository.getInstance(
                 MovieRemoteDataSource.getInstance(),
                 MovieLocalDatasource.getInstance(this));
-        mViewModel = new MoviesViewModel(repository);
+        mViewModel = ViewModelProviders.of(this).get(MoviesViewModel.class);
+        mViewModel.setupViewModel(repository);
         ActivityMoviesBinding binding = DataBindingUtil
                 .setContentView(this, R.layout.activity_movies);
         binding.setViewModel(mViewModel);
