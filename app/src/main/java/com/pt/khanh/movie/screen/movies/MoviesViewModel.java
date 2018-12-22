@@ -16,7 +16,7 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
 public class MoviesViewModel extends BaseObservable implements MoviesAdapter.ItemBookmarkListener {
-    public ObservableBoolean mIsLoadingMore = new ObservableBoolean();
+//    public ObservableBoolean mIsLoadingMore = new ObservableBoolean();
     public ObservableBoolean mIsLoadingProgress = new ObservableBoolean();
     private MovieRepository mRepository;
     private MoviesAdapter mAdapter;
@@ -67,13 +67,11 @@ public class MoviesViewModel extends BaseObservable implements MoviesAdapter.Ite
     }
 
     private void handleError(Throwable error) {
-        mIsLoadingMore.set(false);
         mIsLoadingProgress.set(false);
     }
 
     private void handleResponse(MovieResult response) {
         mIsLoadingProgress.set(false);
-        mIsLoadingMore.set(false);
         mMovies = response.getMovies();
         mTotalPage = response.getTotalPage();
         mAdapter.addMovies(mMovies);
@@ -84,12 +82,10 @@ public class MoviesViewModel extends BaseObservable implements MoviesAdapter.Ite
     }
 
     public void onLoadMore() {
-        mIsLoadingMore.set(true);
         ++mPage;
         getMoviesByCategory(mType);
         getMoviesByGenre(mId);
         if (mPage < mTotalPage) {
-            mIsLoadingMore.set(true);
             getMoviesByCompany(mId);
         } else return;
     }
