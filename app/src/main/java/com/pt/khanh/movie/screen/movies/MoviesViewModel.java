@@ -80,9 +80,6 @@ public class MoviesViewModel extends AndroidViewModel implements MoviesAdapter.I
         if (error.getMessage().equals(getApplication().getString(R.string.error_no_internet)))
             Toast.makeText(getApplication(),
                     getApplication().getString(R.string.toast_no_internet), Toast.LENGTH_SHORT).show();
-        else
-            Toast.makeText(getApplication(),
-                    getApplication().getString(R.string.toast_error_api), Toast.LENGTH_SHORT).show();
     }
 
     private void handleResponse(MovieResult response) {

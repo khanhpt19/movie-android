@@ -27,7 +27,9 @@ public class ItemCompanyViewModel extends BaseObservable {
 
     @BindingAdapter("imageUrlCompany")
     public static void imageUrlCompany(ImageView imageView, String url) {
-        RequestOptions requestOptions = new RequestOptions().error(R.drawable.default_company);
+        RequestOptions requestOptions = new RequestOptions()
+                .placeholder(R.drawable.loading)
+                .error(R.drawable.default_company);
         Glide.with(imageView.getContext())
                 .load(StringUtils.getUrlImage(url))
                 .apply(requestOptions).into(imageView);

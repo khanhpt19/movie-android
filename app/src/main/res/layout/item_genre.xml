@@ -14,11 +14,11 @@
         android:layout_height="wrap_content">
 
         <ImageView
+            imageDrawable="@{viewModel.mGenreObservableField.imageResource}"
             android:layout_width="0dp"
             android:layout_height="@dimen/dp_100"
             android:onClick="@{() -> viewModel.onClickItemGenres()}"
             android:scaleType="fitXY"
-            app:imageDrawable="@{viewModel.mGenreObservableField.imageResource}"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent" />
 

@@ -10,9 +10,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.google.android.youtube.player.YouTubePlayer;
 import com.google.android.youtube.player.YouTubePlayerView;
 import com.pt.khanh.movie.BuildConfig;
+import com.pt.khanh.movie.R;
 import com.pt.khanh.movie.screen.genre.GridSpacingItemDecoration;
 import com.pt.khanh.movie.screen.movies.EndLessRecyclerOnScrollListener;
 import com.rd.PageIndicatorView;
@@ -48,8 +50,13 @@ public final class BindingUtils {
     }
 
     @BindingAdapter({"imageDrawable"})
-    public static void loadImg(ImageView imageView, int resource) {
+    public static void imageDrawable(ImageView imageView, int resource) {
+        RequestOptions requestOptions = new RequestOptions()
+                .placeholder(R.drawable.loading)
+                .error(R.drawable.default_movie);
+
         Glide.with(imageView.getContext())
+                .applyDefaultRequestOptions(requestOptions)
                 .load(resource)
                 .into(imageView);
     }
@@ -88,13 +95,15 @@ public final class BindingUtils {
 
     @BindingAdapter("converseDate")
     public static void converseDate(TextView textView, String date) {
-        StringBuffer sb = new StringBuffer();
-        String[] list = date.split("-");
-        for (int i = 2; i >= 0; i--) {
-            sb.append(list[i]);
-            sb.append("-");
+        if (!StringUtils.isEmpty(date)) {
+            StringBuffer sb = new StringBuffer();
+            String[] list = date.split("-");
+            for (int i = 2; i >= 0; i--) {
+                sb.append(list[i]);
+                sb.append("-");
+            }
+            sb.deleteCharAt(10);
+            textView.setText(sb.toString());
         }
-        sb.deleteCharAt(10);
-        textView.setText(sb.toString());
     }
 }

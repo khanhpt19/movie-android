@@ -19,6 +19,7 @@ import com.pt.khanh.movie.data.model.MovieResult;
 import com.pt.khanh.movie.data.repository.MovieRepository;
 import com.pt.khanh.movie.screen.movies.MoviesAdapter;
 import com.pt.khanh.movie.utils.Constants;
+import com.pt.khanh.movie.utils.NetworkUtils;
 import com.pt.khanh.movie.utils.StringUtils;
 
 import java.util.concurrent.TimeUnit;
@@ -103,6 +104,11 @@ public class SearchViewModel extends BaseObservable implements TextView.OnEditor
 
     @Override
     public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+        if(!NetworkUtils.isConnectedToNetwork(mActivity)){
+            Toast.makeText(mActivity, mActivity.getString(R.string.toast_no_internet),
+                    Toast.LENGTH_SHORT).show();
+            return false;
+        }
         if (actionId == EditorInfo.IME_ACTION_SEARCH) {
             mTextSearch.set(v.getText().toString());
             hideKeyboard(mActivity);

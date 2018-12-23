@@ -10,6 +10,7 @@ import com.pt.khanh.movie.R;
 import com.pt.khanh.movie.data.model.Genre;
 import com.pt.khanh.movie.data.model.GenresResult;
 import com.pt.khanh.movie.data.repository.MovieRepository;
+import com.pt.khanh.movie.utils.NetworkUtils;
 
 import java.util.List;
 
@@ -33,7 +34,9 @@ public class GenreViewModel extends BaseObservable {
         mMoviesRepository = moviesRepository;
         observableDecoration.set(new GridSpacingItemDecoration(SPAN_COUT, SPACING, true));
         mGenreAdapter = new GenreAdapter(context);
-        loadGenres();
+        if (NetworkUtils.isConnectedToNetwork(mContext)) {
+            loadGenres();
+        }
     }
 
     private void loadGenres() {
@@ -44,7 +47,7 @@ public class GenreViewModel extends BaseObservable {
                 .subscribe(genresResult -> {
                     mIsLoading.set(false);
                     mGenreAdapter.setGenres(getGenres(genresResult));
-                }, error->handleError(error));
+                }, error -> handleError(error));
         mCompositeDisposable.add(disposable);
     }
 

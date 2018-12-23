@@ -32,7 +32,7 @@
                 android:id="@+id/text_name"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/dp_8"
+                android:gravity="center"
                 android:singleLine="true"
                 android:text="@{viewModel.mCompanyObservableField.name}"
                 android:textSize="@dimen/sp_15"

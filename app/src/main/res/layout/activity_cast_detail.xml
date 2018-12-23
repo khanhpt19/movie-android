@@ -39,7 +39,7 @@
 
                 <ImageView
                     android:id="@+id/image_cast"
-                    imageUrlCast="@{viewModel.mCastObservableField.profilePath}"
+                    imageUrlCastDetail="@{viewModel.mCastObservableField.profilePath}"
                     android:layout_width="@dimen/dp_100"
                     android:layout_height="@dimen/dp_100"
                     android:layout_margin="@dimen/dp_8"
@@ -62,10 +62,10 @@
 
                 <TextView
                     android:id="@+id/text_birthday"
+                    converseDate="@{viewModel.mCastObservableField.birthday}"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/dp_16"
-                    converseDate="@{viewModel.mCastObservableField.birthday}"
                     app:layout_constraintLeft_toLeftOf="@id/text_name"
                     app:layout_constraintTop_toBottomOf="@id/text_name" />
 
@@ -79,10 +79,13 @@
 
                 <TextView
                     android:id="@+id/title_biography"
-                    style="@style/StyleTextTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dp_8"
                     android:layout_marginTop="@dimen/dp_8"
                     android:text="@string/text_biography"
                     android:textColor="@color/color_teal_50_700"
+                    android:textSize="@dimen/sp_18"
                     android:visibility="@{viewModel.mHasBiography ? View.VISIBLE : View.GONE}"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/image_cast" />
@@ -119,7 +122,7 @@
                             android:layout_marginLeft="@dimen/dp_8"
                             android:text="@string/text_movies"
                             android:textColor="@color/color_teal_50_700"
-                            android:textSize="@dimen/sp_20"
+                            android:textSize="@dimen/sp_18"
                             android:visibility="@{viewModel.mHasMovies ? View.VISIBLE : View.GONE}" />
 
                         <android.support.v7.widget.RecyclerView

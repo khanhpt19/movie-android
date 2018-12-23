@@ -39,4 +39,6 @@
     <string name="toast_error_api">Chúng tôi xin lỗi vì sự bất tiện này. Vui lòng thử lại sau!</string>
     <string name="error_no_internet">Unable to resolve host \"api.themoviedb.org\": No address associated with hostname</string>
     <string name="text_vote_average">Điểm bình chọn</string>
+    <string name="notice_favorite">Đánh dấu bộ phim yêu thích để xem khi bạn offline</string>
+    <string name="notice_no_movie_favorite">Không có phim yêu thích</string>
 </resources>

@@ -22,6 +22,7 @@ import com.pt.khanh.movie.data.model.MovieResult;
 import com.pt.khanh.movie.data.repository.MovieRepository;
 import com.pt.khanh.movie.screen.movies.MoviesActivity;
 import com.pt.khanh.movie.utils.Constants;
+import com.pt.khanh.movie.utils.NetworkUtils;
 import com.pt.khanh.movie.utils.StringUtils;
 
 import java.util.List;
@@ -48,11 +49,13 @@ public class HomeViewModel extends AndroidViewModel {
 
     public void setupView(MovieRepository repository) {
         mRepository = repository;
-        getMovieTrend();
-        getMovieByPopular();
-        getMovieByNowPlaying();
-        getMovieByTopRated();
-        getMovieByUpComing();
+        if (NetworkUtils.isConnectedToNetwork(getApplication())) {
+            getMovieTrend();
+            getMovieByPopular();
+            getMovieByNowPlaying();
+            getMovieByTopRated();
+            getMovieByUpComing();
+        }
     }
 
     private void getMovieTrend() {
@@ -174,14 +177,15 @@ public class HomeViewModel extends AndroidViewModel {
         view.getContext().startActivity(getMovieIntent(view.getContext(), mCategory));
     }
 
-
-    @BindingAdapter("imageUrl")
-    public static void imageUrl(ImageView imageView, String url) {
+    @BindingAdapter("imageUrlCategory")
+    public static void imageUrlCategory(ImageView imageView, String url) {
         RequestOptions requestOptions = new RequestOptions()
-                .error(R.drawable.ic_launcher_foreground);
+                .placeholder(R.drawable.loading)
+                .error(R.drawable.default_movie);
         Glide.with(imageView.getContext())
+                .applyDefaultRequestOptions(requestOptions)
                 .load(StringUtils.getUrlImage(url))
-                .apply(requestOptions)
+                .thumbnail(0.1f)
                 .into(imageView);
     }
 
