@@ -19,7 +19,7 @@
             android:layout_height="@dimen/dp_250"
             android:onClick="@{() -> viewModel.onClickItemTrending()}"
             android:scaleType="centerCrop"
-            app:imageUrl="@{viewModel.mMovieObservableField.backdropPath}"
+            imageUrlMovie="@{viewModel.mMovieObservableField.backdropPath}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -33,7 +33,7 @@
 
         <ImageView
             android:id="@+id/image_poster_trend"
-            imageUrl="@{viewModel.mMovieObservableField.posterPath}"
+            imageUrlMovie="@{viewModel.mMovieObservableField.posterPath}"
             android:layout_width="@dimen/dp_100"
             android:layout_height="@dimen/dp_150"
             android:layout_marginLeft="@dimen/dp_8"
@@ -80,7 +80,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/dp_8"
-            android:text="@{viewModel.mMovieObservableField.releaseDate}"
+            converseDate="@{viewModel.mMovieObservableField.releaseDate}"
             android:textColor="@android:color/white"
             android:textSize="@dimen/sp_15"
             app:layout_constraintBottom_toBottomOf="@id/image_poster_trend"

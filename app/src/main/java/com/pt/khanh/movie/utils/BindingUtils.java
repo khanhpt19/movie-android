@@ -85,4 +85,16 @@ public final class BindingUtils {
                                          RecyclerView.ItemDecoration itemDecoration) {
         recyclerView.addItemDecoration(itemDecoration);
     }
+
+    @BindingAdapter("converseDate")
+    public static void converseDate(TextView textView, String date) {
+        StringBuffer sb = new StringBuffer();
+        String[] list = date.split("-");
+        for (int i = 2; i >= 0; i--) {
+            sb.append(list[i]);
+            sb.append("-");
+        }
+        sb.deleteCharAt(10);
+        textView.setText(sb.toString());
+    }
 }

@@ -65,7 +65,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/dp_16"
-                    android:text="@{viewModel.mCastObservableField.birthday}"
+                    converseDate="@{viewModel.mCastObservableField.birthday}"
                     app:layout_constraintLeft_toLeftOf="@id/text_name"
                     app:layout_constraintTop_toBottomOf="@id/text_name" />
 
