@@ -42,6 +42,9 @@ public class ItemCastViewModel extends BaseObservable {
     }
 
     public void onClickItemCast() {
+//        if(!NetworkUtils.isConnectedToNetwork(mContext)){
+//            return;
+//        }
         mContext.startActivity(getMoviesIntent(mContext, mCastObservableField.get()));
     }
 

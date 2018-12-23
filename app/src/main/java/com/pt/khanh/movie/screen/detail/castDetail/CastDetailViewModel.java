@@ -46,8 +46,8 @@ public class CastDetailViewModel extends AndroidViewModel {
         getMoviesByCast(cast.getId());
     }
 
-    @BindingAdapter("imageUrlCast")
-    public static void imageUrlCast(ImageView imageView, String url) {
+    @BindingAdapter("imageUrlCastDetail")
+    public static void imageUrlCastDetail(ImageView imageView, String url) {
         RequestOptions requestOptions = new RequestOptions()
                 .placeholder(R.drawable.loading)
                 .error(R.drawable.default_person1)

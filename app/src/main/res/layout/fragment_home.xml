@@ -63,8 +63,8 @@
                 android:layout_marginLeft="@dimen/dp_4"
                 android:text="@string/text_category"
                 android:textColor="@color/color_teal_50_700"
-                android:textStyle="bold"
                 android:textSize="@dimen/sp_20"
+                android:textStyle="bold"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/constrain_trending" />
 
@@ -110,11 +110,11 @@
 
                     <ImageView
                         android:id="@+id/image_popular"
+                        imageUrlCategory="@{viewModel.moviePopular.backdropPath}"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:scaleType="fitXY"
-                        android:src="@drawable/action"
-                        app:imageUrl="@{viewModel.moviePopular.backdropPath}" />
+                        android:src="@drawable/action" />
 
                     <View
                         android:layout_width="match_parent"
@@ -147,11 +147,11 @@
 
                     <ImageView
                         android:id="@+id/image_now_playing"
+                        imageUrlCategory="@{viewModel.movieNowPlaying.backdropPath}"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:scaleType="fitXY"
-                        android:src="@drawable/action"
-                        app:imageUrl="@{viewModel.movieNowPlaying.backdropPath}" />
+                        android:src="@drawable/action" />
 
                     <View
                         android:layout_width="match_parent"
@@ -185,11 +185,11 @@
 
                     <ImageView
                         android:id="@+id/image_now_top_rate"
+                        imageUrlCategory="@{viewModel.movieTopRated.backdropPath}"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:scaleType="fitXY"
-                        android:src="@drawable/action"
-                        app:imageUrl="@{viewModel.movieTopRated.backdropPath}" />
+                        android:src="@drawable/action" />
 
                     <View
                         android:layout_width="match_parent"
@@ -222,11 +222,11 @@
 
                     <ImageView
                         android:id="@+id/image_upcoming"
+                        imageUrlCategory="@{viewModel.movieUpComing.backdropPath}"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:scaleType="fitXY"
-                        android:src="@drawable/action"
-                        app:imageUrl="@{viewModel.movieUpComing.backdropPath}" />
+                        android:src="@drawable/action" />
 
                     <View
                         android:layout_width="match_parent"

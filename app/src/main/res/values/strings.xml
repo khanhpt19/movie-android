@@ -38,4 +38,6 @@
     <string name="toast_error_api">Sorry, API was error. Please try again later!</string>
     <string name="error_no_internet">Unable to resolve host \"api.themoviedb.org\": No address associated with hostname</string>
     <string name="text_vote_average">Vote average</string>
+    <string name="notice_favorite">Use the favorite button to bookmark movies. Watch them next time you\'re offline</string>
+    <string name="notice_no_movie_favorite">No movie favorite</string>
 </resources>

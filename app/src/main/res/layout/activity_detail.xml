@@ -79,8 +79,9 @@
 
                 <TextView
                     android:id="@+id/text_title_genre"
-                    style="@style/StyleTextTitle"
                     android:layout_width="wrap_content"
+                    android:layout_marginLeft="@dimen/dp_8"
+                    android:textSize="@dimen/sp_18"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/dp_8"
                     android:text="@string/title_genres"
@@ -105,7 +106,8 @@
 
                 <TextView
                     android:id="@+id/text_title_cast"
-                    style="@style/StyleTextTitle"
+                    android:layout_marginLeft="@dimen/dp_8"
+                    android:textSize="@dimen/sp_18"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/dp_8"
@@ -137,7 +139,7 @@
                     android:layout_marginTop="@dimen/dp_8"
                     android:text="@string/title_company"
                     android:textColor="@color/color_teal_50_700"
-                    android:textSize="@dimen/sp_20"
+                    android:textSize="@dimen/sp_18"
                     android:visibility="@{viewModel.mHasCompany ? View.VISIBLE : View.GONE}"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/recycler_view_cast" />
@@ -158,7 +160,8 @@
 
                 <TextView
                     android:id="@+id/text_title_recommend"
-                    style="@style/StyleTextTitle"
+                    android:layout_marginLeft="@dimen/dp_8"
+                    android:textSize="@dimen/sp_18"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/dp_8"
@@ -184,7 +187,8 @@
 
                 <TextView
                     android:id="@+id/text_title_review"
-                    style="@style/StyleTextTitle"
+                    android:layout_marginLeft="@dimen/dp_8"
+                    android:textSize="@dimen/sp_18"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/dp_8"
@@ -214,6 +218,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/dp_8"
+                    android:textSize="@dimen/sp_18"
                     android:layout_marginTop="@dimen/dp_8"
                     android:text="@string/text_release_date"
                     android:textColor="@color/color_teal_50_700"
@@ -233,6 +238,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/dp_8"
+                    android:textSize="@dimen/sp_18"
                     android:layout_marginTop="@dimen/dp_8"
                     android:text="@string/text_vote_average"
                     android:textColor="@color/color_teal_50_700"
